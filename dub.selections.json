@@ -1,0 +1,8 @@
+{
+	"fileVersion": 1,
+	"versions": {
+		"commandr": "0.2.0",
+		"diet-ng": "1.8.4",
+		"dmarkdown": "0.3.0"
+	}
+}
