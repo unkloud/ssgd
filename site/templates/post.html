@@ -4,31 +4,37 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}} - {{siteName}}</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/chota@latest">
 </head>
 <body>
-  <header>
-    <h1>{{siteName}}</h1>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about.html">About</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <article>
-      <header>
-        <h2>{{title}}</h2>
-        <p class="meta">Posted on {{date}} by {{author}}</p>
-      </header>
-      <div class="content">
-        {{content}}
+  <div class="container">
+    <header class="row">
+      <div class="col">
+        <h1>{{siteName}}</h1>
+        <nav class="nav">
+          <a href="/" class="brand">Home</a>
+          <a href="/about.html">About</a>
+        </nav>
       </div>
-    </article>
-  </main>
-  <footer>
-    <p>&copy; {{copyright}}</p>
-  </footer>
+    </header>
+    <main class="row">
+      <div class="col">
+        <article class="card">
+          <header>
+            <h2>{{title}}</h2>
+            <p class="text-grey"><small>Posted on {{date}} by {{author}}</small></p>
+          </header>
+          <div class="content">
+            {{content}}
+          </div>
+        </article>
+      </div>
+    </main>
+    <footer class="row">
+      <div class="col">
+        <p class="text-grey">&copy; {{copyright}}</p>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

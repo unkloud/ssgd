@@ -1,6 +1,3 @@
-# Prerequisites
-*.d
-
 # Compiled Object files
 *.slo
 *.lo
@@ -33,4 +30,4 @@
 ./build/
 .idea/
 /ssgd
-!/.idea/workspace.xml
+/build/

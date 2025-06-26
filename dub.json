@@ -7,7 +7,7 @@
 	"license": "AGPL-3.0-or-later",
 	"name": "ssgd",
 	"dependencies": {
-		"dmarkdown": "~>0.3.0",
+		"commonmark-d": "~>1.0.0",
 		"commandr": "~>0.2.0",
 		"diet-ng": "~>1.8.1"
 	},

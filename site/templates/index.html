@@ -4,26 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{siteName}}</title>
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/chota@latest">
 </head>
 <body>
-  <header>
-    <h1>{{siteName}}</h1>
-    <nav>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/about.html">About</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <h2>Recent Posts</h2>
-    <ul class="posts">
-      {{posts}}
-    </ul>
-  </main>
-  <footer>
-    <p>&copy; {{copyright}}</p>
-  </footer>
+  <div class="container">
+    <header class="row">
+      <div class="col">
+        <h1>{{siteName}}</h1>
+        <nav class="nav">
+          <a href="/" class="brand">Home</a>
+          <a href="/about.html">About</a>
+        </nav>
+      </div>
+    </header>
+    <main class="row">
+      <div class="col">
+        <h2>Recent Posts</h2>
+        <div class="posts">
+          {{posts}}
+        </div>
+      </div>
+    </main>
+    <footer class="row">
+      <div class="col">
+        <p class="text-grey">&copy; {{copyright}}</p>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
