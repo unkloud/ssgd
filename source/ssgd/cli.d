@@ -101,72 +101,168 @@ class CLI
         );
 
         // Create default templates
-        std.file.write(buildPath(path, "site", "templates", "index.html"),
+        std.file.write(buildPath(path, "site", "templates", "base.html"),
             "<!DOCTYPE html>\n" ~
-                "<html>\n" ~
+                "<html lang=\"en\">\n" ~
                 "<head>\n" ~
-                "    <title>{{title}}</title>\n" ~
+                "  <meta charset=\"utf-8\">\n" ~
+                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
+                "  <title>{{title}}</title>\n" ~
+                "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
                 "</head>\n" ~
                 "<body>\n" ~
-                "    <header>\n" ~
-                "        <h1>{{siteName}}</h1>\n" ~
+                "  <div class=\"container\">\n" ~
+                "    <header class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <nav class=\"nav\">\n" ~
+                "          <a href=\"/\" class=\"brand\">{{siteName}}</a>\n" ~
+                "          <div class=\"nav-right\">\n" ~
+                "            <a href=\"/\">Home</a>\n" ~
+                "            <a href=\"/about.html\">About</a>\n" ~
+                "          </div>\n" ~
+                "        </nav>\n" ~
+                "      </div>\n" ~
                 "    </header>\n" ~
-                "    <main>\n" ~
-                "        <h2>Recent Posts</h2>\n" ~
-                "        <ul class=\"posts\">\n" ~
-                "            {{posts}}\n" ~
-                "        </ul>\n" ~
+                "    <main class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        {{content}}\n" ~
+                "      </div>\n" ~
                 "    </main>\n" ~
-                "    <footer>\n" ~
-                "        <p>{{copyright}}</p>\n" ~
+                "    <footer class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <p class=\"text-grey\">&copy; {{copyright}}</p>\n" ~
+                "      </div>\n" ~
                 "    </footer>\n" ~
+                "  </div>\n" ~
+                "</body>\n" ~
+                "</html>\n"
+        );
+
+        std.file.write(buildPath(path, "site", "templates", "index.html"),
+            "<!DOCTYPE html>\n" ~
+                "<html lang=\"en\">\n" ~
+                "<head>\n" ~
+                "  <meta charset=\"utf-8\">\n" ~
+                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
+                "  <title>{{siteName}}</title>\n" ~
+                "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
+                "</head>\n" ~
+                "<body>\n" ~
+                "  <div class=\"container\">\n" ~
+                "    <header class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <nav class=\"nav\">\n" ~
+                "          <a href=\"/\" class=\"brand\">{{siteName}}</a>\n" ~
+                "          <div class=\"nav-right\">\n" ~
+                "            <a href=\"/\">Home</a>\n" ~
+                "            <a href=\"/about.html\">About</a>\n" ~
+                "          </div>\n" ~
+                "        </nav>\n" ~
+                "      </div>\n" ~
+                "    </header>\n" ~
+                "    <main class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <h2>Recent Posts</h2>\n" ~
+                "        <div class=\"posts\">\n" ~
+                "          {{posts}}\n" ~
+                "        </div>\n" ~
+                "      </div>\n" ~
+                "    </main>\n" ~
+                "    <footer class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <p class=\"text-grey\">&copy; {{copyright}}</p>\n" ~
+                "      </div>\n" ~
+                "    </footer>\n" ~
+                "  </div>\n" ~
                 "</body>\n" ~
                 "</html>\n"
         );
 
         std.file.write(buildPath(path, "site", "templates", "post.html"),
             "<!DOCTYPE html>\n" ~
-                "<html>\n" ~
+                "<html lang=\"en\">\n" ~
                 "<head>\n" ~
-                "    <title>{{title}} - {{siteName}}</title>\n" ~
+                "  <meta charset=\"utf-8\">\n" ~
+                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
+                "  <title>{{title}} - {{siteName}}</title>\n" ~
+                "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
                 "</head>\n" ~
                 "<body>\n" ~
-                "    <header>\n" ~
-                "        <h1><a href=\"../\">{{siteName}}</a></h1>\n" ~
+                "  <div class=\"container\">\n" ~
+                "    <header class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <nav class=\"nav\">\n" ~
+                "          <a href=\"/\" class=\"brand\">{{siteName}}</a>\n" ~
+                "          <div class=\"nav-right\">\n" ~
+                "            <a href=\"/\">Home</a>\n" ~
+                "            <a href=\"/about.html\">About</a>\n" ~
+                "          </div>\n" ~
+                "        </nav>\n" ~
+                "      </div>\n" ~
                 "    </header>\n" ~
-                "    <main>\n" ~
-                "        <article>\n" ~
-                "            <h1>{{title}}</h1>\n" ~
-                "            <div class=\"meta\">By {{author}} on {{date}}</div>\n" ~
+                "    <main class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <article class=\"card\">\n" ~
+                "          <header>\n" ~
+                "            <h2>{{title}}</h2>\n" ~
+                "            <p class=\"text-grey\"><small>Posted on {{date}} by {{author}}</small></p>\n" ~
+                "          </header>\n" ~
+                "          <div class=\"content\">\n" ~
                 "            {{content}}\n" ~
+                "          </div>\n" ~
                 "        </article>\n" ~
+                "      </div>\n" ~
                 "    </main>\n" ~
-                "    <footer>\n" ~
-                "        <p>{{copyright}}</p>\n" ~
+                "    <footer class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <p class=\"text-grey\">&copy; {{copyright}}</p>\n" ~
+                "      </div>\n" ~
                 "    </footer>\n" ~
+                "  </div>\n" ~
                 "</body>\n" ~
                 "</html>\n"
         );
 
         std.file.write(buildPath(path, "site", "templates", "page.html"),
             "<!DOCTYPE html>\n" ~
-                "<html>\n" ~
+                "<html lang=\"en\">\n" ~
                 "<head>\n" ~
-                "    <title>{{title}} - {{siteName}}</title>\n" ~
+                "  <meta charset=\"utf-8\">\n" ~
+                "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
+                "  <title>{{title}} - {{siteName}}</title>\n" ~
+                "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
                 "</head>\n" ~
                 "<body>\n" ~
-                "    <header>\n" ~
-                "        <h1><a href=\"../\">{{siteName}}</a></h1>\n" ~
+                "  <div class=\"container\">\n" ~
+                "    <header class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <nav class=\"nav\">\n" ~
+                "          <a href=\"/\" class=\"brand\">{{siteName}}</a>\n" ~
+                "          <div class=\"nav-right\">\n" ~
+                "            <a href=\"/\">Home</a>\n" ~
+                "            <a href=\"/about.html\">About</a>\n" ~
+                "          </div>\n" ~
+                "        </nav>\n" ~
+                "      </div>\n" ~
                 "    </header>\n" ~
-                "    <main>\n" ~
-                "        <article>\n" ~
-                "            <h1>{{title}}</h1>\n" ~
+                "    <main class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <article class=\"card page\">\n" ~
+                "          <header>\n" ~
+                "            <h2>{{title}}</h2>\n" ~
+                "          </header>\n" ~
+                "          <div class=\"content\">\n" ~
                 "            {{content}}\n" ~
+                "          </div>\n" ~
                 "        </article>\n" ~
+                "      </div>\n" ~
                 "    </main>\n" ~
-                "    <footer>\n" ~
-                "        <p>{{copyright}}</p>\n" ~
+                "    <footer class=\"row\">\n" ~
+                "      <div class=\"col\">\n" ~
+                "        <p class=\"text-grey\">&copy; {{copyright}}</p>\n" ~
+                "      </div>\n" ~
                 "    </footer>\n" ~
+                "  </div>\n" ~
                 "</body>\n" ~
                 "</html>\n"
         );
