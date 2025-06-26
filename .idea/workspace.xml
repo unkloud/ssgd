@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update `.gitignore` and adjust output directory references in documentation">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dub.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dub.selections.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.selections.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/static/css/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/site/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/site/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/templates/page.html" beforeDir="false" afterPath="$PROJECT_DIR$/site/templates/page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/templates/post.html" beforeDir="false" afterPath="$PROJECT_DIR$/site/templates/post.html" afterDir="false" />
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Add core SSGD functionality: content handling, CLI, and rendering">
+      <change beforePath="$PROJECT_DIR$/source/ssgd/cli.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/cli.d" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +70,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Update `.gitignore` and adjust output directory references in documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update `.gitignore` and adjust output directory references in documentation" />
+    <MESSAGE value="Add core SSGD functionality: content handling, CLI, and rendering" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add core SSGD functionality: content handling, CLI, and rendering" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

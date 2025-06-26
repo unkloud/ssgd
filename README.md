@@ -2,6 +2,17 @@
 
 SSGD is a fast and simple static site generator written in the D programming language. It provides a clean command-line interface for creating, building, and serving static websites from Markdown content.
 
+## ⚠️ Important Notice
+
+**Personal Use Project**: This is a vibe-coded project created primarily for the author's personal use and experimentation. While you're welcome to explore and use it, please be aware that:
+
+- The project may undergo unexpected changes or breaking updates without prior notice
+- Features may be added, modified, or removed based on personal needs rather than general use cases
+- The project could be abandoned or archived at any time without warning
+- Limited support and documentation may be available
+
+**Use at your own risk** - Please evaluate whether this project meets your needs and consider the potential for changes before depending on it for critical applications.
+
 ## Features
 
 - **Simple CLI Interface**: Easy-to-use commands similar to popular static site generators

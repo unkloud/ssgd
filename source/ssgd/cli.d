@@ -76,7 +76,6 @@ class CLI
         mkdirRecurse(buildPath(path, "site", "content", "posts"));
         mkdirRecurse(buildPath(path, "site", "content", "pages"));
         mkdirRecurse(buildPath(path, "site", "templates"));
-        mkdirRecurse(buildPath(path, "site", "static", "css"));
         mkdirRecurse(buildPath(path, "build"));
         std.file.write(buildPath(path, "site", "content", "posts", "hello-world.md"),
             "Title: Hello World\n" ~
@@ -101,56 +100,12 @@ class CLI
                 "This is a sample page created with SSGD.\n"
         );
 
-        // Create default CSS
-        std.file.write(buildPath(path, "site", "static", "css", "style.css"),
-            "/* Basic styling for SSGD default theme */\n" ~
-                "body {\n" ~
-                "  font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Helvetica, Arial, sans-serif;\n" ~
-                "  line-height: 1.6;\n" ~
-                "  color: #333;\n" ~
-                "  max-width: 800px;\n" ~
-                "  margin: 0 auto;\n" ~
-                "  padding: 1rem;\n" ~
-                "}\n\n" ~
-                "header {\n" ~
-                "  margin-bottom: 2rem;\n" ~
-                "  border-bottom: 1px solid #eee;\n" ~
-                "}\n\n" ~
-                "a {\n" ~
-                "  color: #0066cc;\n" ~
-                "  text-decoration: none;\n" ~
-                "}\n\n" ~
-                "a:hover {\n" ~
-                "  text-decoration: underline;\n" ~
-                "}\n\n" ~
-                ".posts {\n" ~
-                "  list-style: none;\n" ~
-                "  padding: 0;\n" ~
-                "}\n\n" ~
-                ".posts li {\n" ~
-                "  margin-bottom: 1rem;\n" ~
-                "}\n\n" ~
-                ".date {\n" ~
-                "  color: #666;\n" ~
-                "  font-size: 0.9rem;\n" ~
-                "  margin-left: 0.5rem;\n" ~
-                "}\n\n" ~
-                "footer {\n" ~
-                "  margin-top: 2rem;\n" ~
-                "  padding-top: 1rem;\n" ~
-                "  border-top: 1px solid #eee;\n" ~
-                "  color: #666;\n" ~
-                "  font-size: 0.9rem;\n" ~
-                "}\n"
-        );
-
         // Create default templates
         std.file.write(buildPath(path, "site", "templates", "index.html"),
             "<!DOCTYPE html>\n" ~
                 "<html>\n" ~
                 "<head>\n" ~
                 "    <title>{{title}}</title>\n" ~
-                "    <link rel=\"stylesheet\" href=\"css/style.css\">\n" ~
                 "</head>\n" ~
                 "<body>\n" ~
                 "    <header>\n" ~
@@ -174,7 +129,6 @@ class CLI
                 "<html>\n" ~
                 "<head>\n" ~
                 "    <title>{{title}} - {{siteName}}</title>\n" ~
-                "    <link rel=\"stylesheet\" href=\"../css/style.css\">\n" ~
                 "</head>\n" ~
                 "<body>\n" ~
                 "    <header>\n" ~
@@ -199,7 +153,6 @@ class CLI
                 "<html>\n" ~
                 "<head>\n" ~
                 "    <title>{{title}} - {{siteName}}</title>\n" ~
-                "    <link rel=\"stylesheet\" href=\"../css/style.css\">\n" ~
                 "</head>\n" ~
                 "<body>\n" ~
                 "    <header>\n" ~
