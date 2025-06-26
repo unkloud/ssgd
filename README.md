@@ -84,7 +84,7 @@ This creates:
 - `site/content/pages/` - Directory for static pages
 - `site/templates/` - HTML templates
 - `site/static/css/` - Static assets (CSS, images, etc.)
-- `public/` - Output directory
+- `build/` - Output directory
 - Sample content and default theme
 
 #### `ssgd build [options]`
@@ -92,7 +92,7 @@ Build the static site from content and templates.
 
 **Options:**
 - `--content=PATH` - Path to content directory (default: `site/content`)
-- `--output=PATH` - Path to output directory (default: `public`)
+- `--output=PATH` - Path to output directory (default: `build`)
 - `--theme=PATH` - Theme directory path (default: `site`)
 - `--name=NAME` - Site name (default: `SSGD Site`)
 - `--url=URL` - Site base URL (default: `/`)
@@ -109,7 +109,7 @@ Serve the generated site locally for development.
 
 **Options:**
 - `--port=PORT` - Port to serve on (default: `8000`)
-- `--output=PATH` - Path to output directory (default: `public`)
+- `--output=PATH` - Path to output directory (default: `build`)
 
 **Examples:**
 ```bash
@@ -143,7 +143,7 @@ my-site/
 │   └── static/             # Static assets
 │       └── css/
 │           └── style.css
-└── public/                 # Generated site output
+└── build/                  # Generated site output
     ├── index.html
     ├── posts/
     │   └── hello-world.html
