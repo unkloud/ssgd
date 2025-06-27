@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update workspace configuration comments to reflect recent changes to site content and templates">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Extract default content and templates into a separate module and refactor CLI initialization logic to use it." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +75,9 @@
     <MESSAGE value="Add pagination support with CLI option and enhance index rendering logic" />
     <MESSAGE value="Remove all site content, templates, and workspace configurations" />
     <MESSAGE value="Update workspace configuration comments to reflect recent changes to site content and templates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration comments to reflect recent changes to site content and templates" />
+    <MESSAGE value="Update `.gitignore` to exclude `/site` and adjust workspace configuration comments" />
+    <MESSAGE value="Extract default content and templates into a separate module and refactor CLI initialization logic to use it." />
+    <option name="LAST_COMMIT_MESSAGE" value="Extract default content and templates into a separate module and refactor CLI initialization logic to use it." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
