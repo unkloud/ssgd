@@ -18,23 +18,25 @@ class SiteGenerator
     string siteName;
     string siteUrl;
     string copyright;
+    int pagination;
     ContentCollection collection;
     MarkdownProcessor markdownProcessor;
     Renderer renderer;
 
     this(string contentPath, string outputPath, string themePath,
         string siteName = "SSGD Site", string siteUrl = "/",
-        string copyright = "Copyright © 2025")
+        int pagination = 20, string copyright = "Copyright © 2025")
     {
         this.contentPath = contentPath;
         this.outputPath = outputPath;
         this.themePath = themePath;
         this.siteName = siteName;
         this.siteUrl = siteUrl;
+        this.pagination = pagination;
         this.copyright = copyright;
         collection = new ContentCollection();
         markdownProcessor = new MarkdownProcessor();
-        renderer = new Renderer(themePath, outputPath, siteName, siteUrl, copyright);
+        renderer = new Renderer(themePath, outputPath, siteName, siteUrl, copyright, pagination);
     }
 
     void loadContent()

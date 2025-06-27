@@ -59,6 +59,7 @@ class CLI
         writeln("  --theme=PATH               Theme to use (default: site)");
         writeln("  --name=NAME                Site name (default: SSGD Site)");
         writeln("  --url=URL                  Site URL (default: /)");
+        writeln("  --pagination=NUM           Number of posts per page (default: 20)");
         writeln("");
         writeln("Options for serve:");
         writeln("  --port=PORT                Port to serve on (default: 8000)");
@@ -279,6 +280,7 @@ class CLI
         string themePath = "site";
         string siteName = "SSGD Site";
         string siteUrl = "/";
+        string paginationStr = "20";
         try
         {
             if (args.length > 0)
@@ -290,7 +292,8 @@ class CLI
                     "output", &outputPath,
                     "theme", &themePath,
                     "name", &siteName,
-                    "url", &siteUrl
+                    "url", &siteUrl,
+                    "pagination", &paginationStr
                 );
             }
         }
@@ -299,13 +302,15 @@ class CLI
             stderr.writeln("Error parsing arguments: ", e.msg);
             return 1;
         }
+        int pagination = to!int(paginationStr);
         writeln("Building site from ", contentPath, " to ", outputPath);
         auto generator = new SiteGenerator(
             contentPath,
             outputPath,
             themePath,
             siteName,
-            siteUrl
+            siteUrl,
+            pagination
         );
         generator.generate();
         return 0;
