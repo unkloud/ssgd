@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update workspace configuration comments to align with recent refactoring changes" />
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Refactor pagination logic and enforce consistent code formatting across renderer and defaults modules">
+      <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +80,8 @@
     <MESSAGE value="Update `.gitignore` to exclude `/site` and adjust workspace configuration comments" />
     <MESSAGE value="Extract default content and templates into a separate module and refactor CLI initialization logic to use it." />
     <MESSAGE value="Update workspace configuration comments to align with recent refactoring changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration comments to align with recent refactoring changes" />
+    <MESSAGE value="Refactor pagination logic and enforce consistent code formatting across renderer and defaults modules" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor pagination logic and enforce consistent code formatting across renderer and defaults modules" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
