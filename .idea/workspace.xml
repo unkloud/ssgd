@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Add pagination support with CLI option and enhance index rendering logic" />
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Remove all site content, templates, and workspace configurations">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/content/pages/about.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/content/posts/hello-world.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/templates/page.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/site/templates/post.html" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -73,7 +81,8 @@
     <MESSAGE value="Remove default CSS generation and update templates to exclude stylesheet references" />
     <MESSAGE value="Update navigation structure to include `nav-right` container and dynamically display `siteName`" />
     <MESSAGE value="Add pagination support with CLI option and enhance index rendering logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add pagination support with CLI option and enhance index rendering logic" />
+    <MESSAGE value="Remove all site content, templates, and workspace configurations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove all site content, templates, and workspace configurations" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
