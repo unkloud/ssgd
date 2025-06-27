@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update navigation structure to include `nav-right` container and dynamically display `siteName`">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/site/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/site/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/cli.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/cli.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/generator.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/generator.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
-    </list>
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Add pagination support with CLI option and enhance index rendering logic" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -78,7 +72,8 @@
     <MESSAGE value="Add core SSGD functionality: content handling, CLI, and rendering" />
     <MESSAGE value="Remove default CSS generation and update templates to exclude stylesheet references" />
     <MESSAGE value="Update navigation structure to include `nav-right` container and dynamically display `siteName`" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update navigation structure to include `nav-right` container and dynamically display `siteName`" />
+    <MESSAGE value="Add pagination support with CLI option and enhance index rendering logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add pagination support with CLI option and enhance index rendering logic" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
