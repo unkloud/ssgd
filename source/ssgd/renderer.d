@@ -119,11 +119,12 @@ class Renderer
         posts.sort!((a, b) => a.date > b.date);
 
         // Calculate pagination
-        int totalPosts = cast(int)posts.length;
+        int totalPosts = cast(int) posts.length;
         int totalPages = (totalPosts + pagination - 1) / pagination; // Ceiling division
 
         // Handle case where there are no posts
-        if (totalPages == 0) totalPages = 1;
+        if (totalPages == 0)
+            totalPages = 1;
 
         for (int page = 1; page <= totalPages; page++)
         {
@@ -136,7 +137,8 @@ class Renderer
             // Calculate post range for this page
             int startIndex = (page - 1) * pagination;
             int endIndex = startIndex + pagination;
-            if (endIndex > totalPosts) endIndex = totalPosts;
+            if (endIndex > totalPosts)
+                endIndex = totalPosts;
 
             // Generate posts HTML for this page
             string postsHtml = "";
@@ -158,7 +160,8 @@ class Renderer
                 // Previous page link
                 if (page > 1)
                 {
-                    string prevUrl = page == 2 ? "index.html" : "page" ~ to!string(page - 1) ~ ".html";
+                    string prevUrl = page == 2 ? "index.html" : "page" ~ to!string(
+                        page - 1) ~ ".html";
                     paginationHtml ~= "  <a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>\n";
                 }
 
@@ -167,7 +170,8 @@ class Renderer
                 {
                     string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
                     string activeClass = p == page ? " class=\"active\"" : "";
-                    paginationHtml ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(p) ~ "</a>\n";
+                    paginationHtml ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(
+                        p) ~ "</a>\n";
                 }
 
                 // Next page link
@@ -191,8 +195,8 @@ class Renderer
 
             // Render the page
             string html = renderTemplate(templatePath, vars);
-            string outputFile = page == 1 ? buildPath(outputPath, "index.html") : 
-                                           buildPath(outputPath, "page" ~ to!string(page) ~ ".html");
+            string outputFile = page == 1 ? buildPath(outputPath, "index.html") : buildPath(outputPath, "page" ~ to!string(
+                    page) ~ ".html");
             std.file.write(outputFile, html);
         }
     }

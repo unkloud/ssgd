@@ -4,7 +4,7 @@ import std.file;
 import std.path;
 
 // Sample content constants
-immutable string HELLO_WORLD_CONTENT = 
+immutable string HELLO_WORLD_CONTENT =
     "Title: Hello World\n" ~
     "Date: 2025-01-01\n" ~
     "Slug: hello-world\n" ~
@@ -17,7 +17,7 @@ immutable string HELLO_WORLD_CONTENT =
     "- Command-line interface similar to Pelican\n" ~
     "- Static linking for easy distribution\n";
 
-immutable string ABOUT_PAGE_CONTENT = 
+immutable string ABOUT_PAGE_CONTENT =
     "Title: About\n" ~
     "Date: 2025-01-01\n" ~
     "Slug: about\n" ~
@@ -27,7 +27,7 @@ immutable string ABOUT_PAGE_CONTENT =
     "This is a sample page created with SSGD.\n";
 
 // Template constants
-immutable string BASE_TEMPLATE = 
+immutable string BASE_TEMPLATE =
     "<!DOCTYPE html>\n" ~
     "<html lang=\"en\">\n" ~
     "<head>\n" ~
@@ -63,7 +63,7 @@ immutable string BASE_TEMPLATE =
     "</body>\n" ~
     "</html>\n";
 
-immutable string INDEX_TEMPLATE = 
+immutable string INDEX_TEMPLATE =
     "<!DOCTYPE html>\n" ~
     "<html lang=\"en\">\n" ~
     "<head>\n" ~
@@ -102,7 +102,7 @@ immutable string INDEX_TEMPLATE =
     "</body>\n" ~
     "</html>\n";
 
-immutable string POST_TEMPLATE = 
+immutable string POST_TEMPLATE =
     "<!DOCTYPE html>\n" ~
     "<html lang=\"en\">\n" ~
     "<head>\n" ~
@@ -146,7 +146,7 @@ immutable string POST_TEMPLATE =
     "</body>\n" ~
     "</html>\n";
 
-immutable string PAGE_TEMPLATE = 
+immutable string PAGE_TEMPLATE =
     "<!DOCTYPE html>\n" ~
     "<html lang=\"en\">\n" ~
     "<head>\n" ~
