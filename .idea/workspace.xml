@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update workspace configuration comments for better alignment with recent changes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dub.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dub.selections.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.selections.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/cli.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/cli.d" afterDir="false" />
-    </list>
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update CLI to use dynamic versioning and improve HTTP server settings; bump dependencies" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,7 +89,8 @@
     <MESSAGE value="Replace Python-based dev server with integrated HTTP server using `vibe.d` and improve CLI error handling. Update dependencies and documentation accordingly. Mark completed features in `README.md`." />
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Update workspace configuration comments for better alignment with recent changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration comments for better alignment with recent changes" />
+    <MESSAGE value="Update CLI to use dynamic versioning and improve HTTP server settings; bump dependencies" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update CLI to use dynamic versioning and improve HTTP server settings; bump dependencies" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
