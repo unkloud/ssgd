@@ -4,17 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Replace Python-based dev server with integrated HTTP server using `vibe.d` and improve CLI error handling. Update dependencies and documentation accordingly. Mark completed features in `README.md`." />
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update workspace configuration comments for better alignment with recent changes">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dub.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dub.selections.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.selections.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/cli.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/cli.d" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="haebfRG8" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -43,7 +55,7 @@
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.2421875",
     "project.structure.side.proportion": "0.25290322",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+    "settings.editor.selected.configurable": "actions.on.save"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -80,7 +92,9 @@
     <MESSAGE value="Update workspace configuration comments to align with recent refactoring changes" />
     <MESSAGE value="Refactor pagination logic and enforce consistent code formatting across renderer and defaults modules" />
     <MESSAGE value="Replace Python-based dev server with integrated HTTP server using `vibe.d` and improve CLI error handling. Update dependencies and documentation accordingly. Mark completed features in `README.md`." />
-    <option name="LAST_COMMIT_MESSAGE" value="Replace Python-based dev server with integrated HTTP server using `vibe.d` and improve CLI error handling. Update dependencies and documentation accordingly. Mark completed features in `README.md`." />
+    <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="Update workspace configuration comments for better alignment with recent changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration comments for better alignment with recent changes" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

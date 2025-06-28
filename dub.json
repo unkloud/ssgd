@@ -7,15 +7,15 @@
 	"license": "AGPL-3.0-or-later",
 	"name": "ssgd",
 	"dependencies": {
-		"commonmark-d": "~>1.0.0",
-		"commandr": "~>0.2.0",
-		"diet-ng": "~>1.8.1",
-		"vibe-d": "~>0.9.0"
+		"commonmark-d": "~>1.0.10",
+		"commandr": "~>1.1.0",
+		"diet-ng": "~>1.8.4",
+		"vibe-d": "~>0.10.2"
 	},
 	"buildTypes": {
 		"release": {
 			"buildOptions": ["releaseMode", "optimize", "inline"],
-			"dflags": ["-static"]
+			"dflags": ["-link-defaultlib-shared=false"]
 		}
 	},
 	"configurations": [

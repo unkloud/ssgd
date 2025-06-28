@@ -13,6 +13,8 @@ import vibe.http.fileserver;
 import vibe.http.router;
 import vibe.core.core;
 
+enum VERSION = "0.0.1";
+
 class CLI
 {
     int run(string[] args)
@@ -36,7 +38,7 @@ class CLI
             printUsage();
             return 0;
         case "version":
-            writeln("SSGD version 1.0.0");
+            writeln(i"SSGD version $(VERSION)".text);
             return 0;
         default:
             writeln("Unknown command: ", command);
@@ -153,27 +155,24 @@ class CLI
             stderr.writeln("Error parsing arguments: ", e.msg);
             return 1;
         }
-
         if (!exists(outputPath))
         {
             stderr.writeln("Output directory does not exist: ", outputPath);
             stderr.writeln("Run 'ssgd build' first to generate the site.");
             return 1;
         }
-
         writeln("Serving site from ", outputPath, " on http://localhost:", port);
         writeln("Press Ctrl+C to stop");
-
         auto settings = new HTTPServerSettings;
-        settings.port = to!ushort(port);
-        settings.bindAddresses = ["127.0.0.1"];
-
+        settings.port = 8080;
+        settings.bindAddresses = ["::1", "127.0.0.1"];
         auto router = new URLRouter;
         router.get("*", serveStaticFiles(outputPath));
-
-        listenHTTP(settings, router);
-
-        runApplication();
-        return 0;
+        auto listener = listenHTTP(settings, router);
+        scope (exit)
+        {
+            listener.stopListening();
+        }
+        return runApplication(&args);
     }
 }
