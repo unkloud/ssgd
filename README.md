@@ -29,7 +29,6 @@ SSGD is a fast and simple static site generator written in the D programming lan
 
 - D compiler (DMD, LDC, or GDC)
 - DUB (D package manager)
-- Python 3 (for the development server)
 
 ### Building from Source
 
@@ -269,7 +268,7 @@ dub test
 - [ ] **Content Categories** - Support for categorizing posts and pages
 - [ ] **Tags System** - Tagging support with tag pages generation
 - [ ] **Draft Support** - Draft posts that don't appear in production builds
-- [ ] **Content Pagination** - Automatic pagination for large numbers of posts
+- [x] **Content Pagination** - Automatic pagination for large numbers of posts
 - [ ] **Related Posts** - Automatic related post suggestions
 - [ ] **Content Scheduling** - Future-dated posts that publish automatically
 
@@ -282,8 +281,8 @@ dub test
 
 ### Developer Experience
 - [ ] **Watch Mode** - Automatic rebuilding on file changes
-- [ ] **Better Error Messages** - More descriptive error reporting with line numbers
-- [ ] **Content Validation** - Validate metadata and content structure
+- [x] **Better Error Messages** - More descriptive error reporting with line numbers
+- [x] **Content Validation** - Validate metadata and content structure
 - [ ] **Template Debugging** - Better template error reporting and debugging
 - [ ] **Hot Module Replacement** - Live editing without full page refresh
 
@@ -302,7 +301,7 @@ dub test
 - [ ] **Social Media Integration** - Automatic social media meta tags and sharing
 
 ### Code Quality and Testing
-- [ ] **Comprehensive Test Suite** - Unit tests for all modules
+- [x] **Comprehensive Test Suite** - Unit tests for all modules
 - [ ] **Integration Tests** - End-to-end testing of CLI commands
 - [ ] **Performance Benchmarks** - Build time and output size benchmarking
 - [ ] **Code Documentation** - Complete API documentation with examples

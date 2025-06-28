@@ -5,10 +5,13 @@ import std.file;
 import std.path;
 import std.string;
 import std.getopt;
-import std.process;
 import std.conv;
 import ssgd.generator;
 import ssgd.defaults;
+import vibe.http.server;
+import vibe.http.fileserver;
+import vibe.http.router;
+import vibe.core.core;
 
 class CLI
 {
@@ -150,12 +153,27 @@ class CLI
             stderr.writeln("Error parsing arguments: ", e.msg);
             return 1;
         }
+
+        if (!exists(outputPath))
+        {
+            stderr.writeln("Output directory does not exist: ", outputPath);
+            stderr.writeln("Run 'ssgd build' first to generate the site.");
+            return 1;
+        }
+
         writeln("Serving site from ", outputPath, " on http://localhost:", port);
         writeln("Press Ctrl+C to stop");
-        auto pid = spawnProcess([
-            "python", "-m", "http.server", port, "-d", outputPath
-        ]);
-        wait(pid);
+
+        auto settings = new HTTPServerSettings;
+        settings.port = to!ushort(port);
+        settings.bindAddresses = ["127.0.0.1"];
+
+        auto router = new URLRouter;
+        router.get("*", serveStaticFiles(outputPath));
+
+        listenHTTP(settings, router);
+
+        runApplication();
         return 0;
     }
 }
