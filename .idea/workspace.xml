@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Enhance static file handling by adding default `robots.txt`, supporting theme and project-level static files, and improving CLI initialization logging.">
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update workspace configuration comments to reflect recent changes.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/defaults.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/defaults.d" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +95,8 @@
     <MESSAGE value="Update CLI to use dynamic versioning and improve HTTP server settings; bump dependencies" />
     <MESSAGE value="Integrate default Zen-inspired styles and redesign templates for improved aesthetics and structure" />
     <MESSAGE value="Enhance static file handling by adding default `robots.txt`, supporting theme and project-level static files, and improving CLI initialization logging." />
-    <option name="LAST_COMMIT_MESSAGE" value="Enhance static file handling by adding default `robots.txt`, supporting theme and project-level static files, and improving CLI initialization logging." />
+    <MESSAGE value="Update workspace configuration comments to reflect recent changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration comments to reflect recent changes." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
