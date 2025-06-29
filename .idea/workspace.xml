@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update CLI to use dynamic versioning and improve HTTP server settings; bump dependencies">
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Integrate default Zen-inspired styles and redesign templates for improved aesthetics and structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/cli.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/cli.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/defaults.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/defaults.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,8 +61,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26927.53" />
-        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-IU-251.26927.53" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-PY-251.26094.141" />
+        <option value="bundled-python-sdk-9f8e2b94138c-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26094.141" />
       </set>
     </attachedChunks>
   </component>
@@ -93,7 +95,8 @@
     <MESSAGE value="Merge remote-tracking branch 'origin/main'&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Update workspace configuration comments for better alignment with recent changes" />
     <MESSAGE value="Update CLI to use dynamic versioning and improve HTTP server settings; bump dependencies" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update CLI to use dynamic versioning and improve HTTP server settings; bump dependencies" />
+    <MESSAGE value="Integrate default Zen-inspired styles and redesign templates for improved aesthetics and structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Integrate default Zen-inspired styles and redesign templates for improved aesthetics and structure" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

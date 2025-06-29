@@ -182,23 +182,55 @@ class Renderer
 
     void copyStaticFiles()
     {
-        string staticPath = buildPath(themePath, "static");
-        if (!exists(staticPath))
+        // Copy from theme static folder
+        string themeStaticPath = buildPath(themePath, "static");
+        if (exists(themeStaticPath))
         {
-            return;
-        }
-        foreach (string entry; dirEntries(staticPath, SpanMode.breadth))
-        {
-            if (isFile(entry))
+            foreach (string entry; dirEntries(themeStaticPath, SpanMode.breadth))
             {
-                string relativePath = entry[staticPath.length + 1 .. $];
-                string outputFile = buildPath(outputPath, relativePath);
-                string outputDir = dirName(outputFile);
-                if (!exists(outputDir))
+                if (isFile(entry))
                 {
-                    mkdirRecurse(outputDir);
+                    string relativePath = entry[themeStaticPath.length + 1 .. $];
+                    string outputFile = buildPath(outputPath, relativePath);
+                    string outputDir = dirName(outputFile);
+                    if (!exists(outputDir))
+                    {
+                        mkdirRecurse(outputDir);
+                    }
+                    copy(entry, outputFile);
                 }
-                copy(entry, outputFile);
+            }
+        }
+
+        // Copy from project static folder with special handling for robots.txt and favicon.ico
+        string projectStaticPath = "static";
+        if (exists(projectStaticPath))
+        {
+            foreach (string entry; dirEntries(projectStaticPath, SpanMode.breadth))
+            {
+                if (isFile(entry))
+                {
+                    string relativePath = entry[projectStaticPath.length + 1 .. $];
+                    string fileName = baseName(entry);
+                    string outputFile;
+
+                    // Special handling: copy robots.txt and favicon.ico to root of build folder
+                    if (fileName == "robots.txt" || fileName == "favicon.ico")
+                    {
+                        outputFile = buildPath(outputPath, fileName);
+                    }
+                    else
+                    {
+                        outputFile = buildPath(outputPath, relativePath);
+                        string outputDir = dirName(outputFile);
+                        if (!exists(outputDir))
+                        {
+                            mkdirRecurse(outputDir);
+                        }
+                    }
+
+                    copy(entry, outputFile);
+                }
             }
         }
     }

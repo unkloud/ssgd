@@ -38,7 +38,7 @@ class CLI
             printUsage();
             return 0;
         case "version":
-            writeln(i"SSGD version $(VERSION)".text);
+            writeln("SSGD version " ~ VERSION);
             return 0;
         default:
             writeln("Unknown command: ", command);
@@ -83,11 +83,18 @@ class CLI
         mkdirRecurse(buildPath(path, "site", "content", "posts"));
         mkdirRecurse(buildPath(path, "site", "content", "pages"));
         mkdirRecurse(buildPath(path, "site", "templates"));
+        writeln("Creating static folder: ", buildPath(path, "static"));
+        mkdirRecurse(buildPath(path, "static"));
         mkdirRecurse(buildPath(path, "build"));
         generateSampleContent(path);
 
         // Create default templates
         generateTemplates(path);
+
+        // Create default static files
+        writeln("Generating default static files...");
+        generateDefaultStaticFiles(path);
+        writeln("Static files generation complete.");
 
         writeln("Site initialized successfully!");
         writeln("Run 'ssgd build' to generate the site.");

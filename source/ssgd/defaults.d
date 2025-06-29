@@ -678,3 +678,13 @@ void generateDefaultStylesheet(string path)
 {
     std.file.write(buildPath(path, "site", "static", "css", "default.css"), DEFAULT_CSS);
 }
+
+void generateDefaultStaticFiles(string path)
+{
+    // Create default robots.txt that disallows all crawlers
+    immutable string DEFAULT_ROBOTS_TXT = 
+        "User-agent: *\n" ~
+        "Disallow: /\n";
+
+    std.file.write(buildPath(path, "static", "robots.txt"), DEFAULT_ROBOTS_TXT);
+}
