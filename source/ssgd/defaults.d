@@ -29,10 +29,6 @@ immutable string ABOUT_PAGE_CONTENT =
 // Default stylesheet with shared styles
 immutable string DEFAULT_STYLESHEET =
     "  <style>\n" ~
-    "    /* Zen-inspired design improvements - Based on Hugo Zen theme principles */\n" ~
-    "    /* Attribution: Design inspired by Hugo Zen theme (https://github.com/frjo/hugo-theme-zen) */\n" ~
-    "    /* Licensed under MIT License */\n" ~
-    "    \n" ~
     "    body {\n" ~
     "      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n" ~
     "      line-height: 1.7;\n" ~
@@ -158,7 +154,6 @@ immutable string BASE_TEMPLATE =
     "  <footer class=\"site-footer\">\n" ~
     "    <div class=\"footer-content\">\n" ~
     "      <p>&copy; {{copyright}}</p>\n" ~
-    "      <p><small>Design inspired by <a href=\"https://github.com/frjo/hugo-theme-zen\" target=\"_blank\" rel=\"noopener\">Hugo Zen theme</a></small></p>\n" ~
     "    </div>\n" ~
     "  </footer>\n" ~
     "</body>\n" ~
@@ -254,7 +249,6 @@ immutable string INDEX_TEMPLATE =
     "  <footer class=\"site-footer\">\n" ~
     "    <div class=\"footer-content\">\n" ~
     "      <p>&copy; {{copyright}}</p>\n" ~
-    "      <p><small>Design inspired by <a href=\"https://github.com/frjo/hugo-theme-zen\" target=\"_blank\" rel=\"noopener\">Hugo Zen theme</a></small></p>\n" ~
     "    </div>\n" ~
     "  </footer>\n" ~
     "</body>\n" ~
@@ -413,7 +407,6 @@ immutable string POST_TEMPLATE =
     "  <footer class=\"site-footer\">\n" ~
     "    <div class=\"footer-content\">\n" ~
     "      <p>&copy; {{copyright}}</p>\n" ~
-    "      <p><small>Design inspired by <a href=\"https://github.com/frjo/hugo-theme-zen\" target=\"_blank\" rel=\"noopener\">Hugo Zen theme</a></small></p>\n" ~
     "    </div>\n" ~
     "  </footer>\n" ~
     "</body>\n" ~
@@ -554,7 +547,6 @@ immutable string PAGE_TEMPLATE =
     "  <footer class=\"site-footer\">\n" ~
     "    <div class=\"footer-content\">\n" ~
     "      <p>&copy; {{copyright}}</p>\n" ~
-    "      <p><small>Design inspired by <a href=\"https://github.com/frjo/hugo-theme-zen\" target=\"_blank\" rel=\"noopener\">Hugo Zen theme</a></small></p>\n" ~
     "    </div>\n" ~
     "  </footer>\n" ~
     "</body>\n" ~
@@ -562,10 +554,6 @@ immutable string PAGE_TEMPLATE =
 
 // Default stylesheet as CSS file content (without <style> tags)
 immutable string DEFAULT_CSS =
-    "/* Zen-inspired design improvements - Based on Hugo Zen theme principles */\n" ~
-    "/* Attribution: Design inspired by Hugo Zen theme (https://github.com/frjo/hugo-theme-zen) */\n" ~
-    "/* Licensed under MIT License */\n" ~
-    "\n" ~
     "body {\n" ~
     "  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n" ~
     "  line-height: 1.7;\n" ~
@@ -682,7 +670,7 @@ void generateDefaultStylesheet(string path)
 void generateDefaultStaticFiles(string path)
 {
     // Create default robots.txt that disallows all crawlers
-    immutable string DEFAULT_ROBOTS_TXT = 
+    immutable string DEFAULT_ROBOTS_TXT =
         "User-agent: *\n" ~
         "Disallow: /\n";
 
