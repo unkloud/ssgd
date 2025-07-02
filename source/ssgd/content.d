@@ -104,7 +104,6 @@ class Content
         {
         }
         import std.datetime.systime : Clock;
-
         SysTime currentTime = Clock.currTime();
         date = Date(currentTime.year, currentTime.month, currentTime.day);
     }

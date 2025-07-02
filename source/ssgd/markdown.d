@@ -25,5 +25,4 @@ class MarkdownProcessor
             process(content);
         }
     }
-
 }

@@ -8,7 +8,6 @@ void main(string[] args)
     if (result != 0)
     {
         import core.stdc.stdlib : exit;
-
         exit(result);
     }
 }

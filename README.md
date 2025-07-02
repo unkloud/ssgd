@@ -250,9 +250,8 @@ dub test
 
 ### Dependencies
 
-- **dmarkdown** (~>0.3.0) - Markdown processing
-- **commandr** (~>0.2.0) - Command-line argument parsing
-- **diet-ng** (~>1.8.1) - Template engine (planned for future use)
+- **commonmarkd** (~>1.0.1) - Markdown processing
+- **vibe-d** (~>0.9.7) - HTTP server for local development serving
 
 ## TODO - Possible Improvements
 
