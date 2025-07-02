@@ -182,10 +182,12 @@ class Renderer
 
     void copyStaticFiles()
     {
-        // Copy from theme static folder
+        writeln("DEBUG: copyStaticFiles method called");
         string themeStaticPath = buildPath(themePath, "static");
+        writeln("DEBUG: Theme static path: ", themeStaticPath);
         if (exists(themeStaticPath))
         {
+            writeln("DEBUG: Traversing theme static folder...");
             foreach (string entry; dirEntries(themeStaticPath, SpanMode.breadth))
             {
                 if (isFile(entry))
@@ -193,55 +195,83 @@ class Renderer
                     string relativePath = entry[themeStaticPath.length + 1 .. $];
                     string outputFile = buildPath(outputPath, relativePath);
                     string outputDir = dirName(outputFile);
+                    writeln("DEBUG: Theme file - Source: ", entry, " -> ", outputFile);
                     if (!exists(outputDir))
                     {
+                        writeln("DEBUG: Creating directory: ", outputDir);
                         mkdirRecurse(outputDir);
                     }
                     copy(entry, outputFile);
+                    writeln("DEBUG: Successfully copied theme file: ", entry, " -> ", outputFile);
                 }
             }
         }
-
-        // Copy from project static folder with special handling for robots.txt and favicon.ico
-        string projectStaticPath = "static";
+        else
+        {
+            writeln("DEBUG: Theme static path does not exist: ", themeStaticPath);
+        }
+        string projectStaticPath = buildPath(themePath, "static");
+        writeln("DEBUG: Project static path: ", projectStaticPath);
         if (exists(projectStaticPath))
         {
+            writeln("DEBUG: Traversing project static folder ", projectStaticPath);
             foreach (string entry; dirEntries(projectStaticPath, SpanMode.breadth))
             {
                 if (isFile(entry))
                 {
-                    string relativePath = entry[projectStaticPath.length + 1 .. $];
+                    string relativePath = entry[themePath.length .. $];
                     string fileName = baseName(entry);
                     string outputFile;
-
-                    // Special handling: copy robots.txt and favicon.ico to root of build folder
+                    writeln("DEBUG: Processing file: ", entry);
+                    writeln("DEBUG: File name: ", fileName);
+                    writeln("DEBUG: Relative path: ", relativePath);
+                    // Rule 1: If file is robots.txt or favicon.ico, copy to build root
                     if (fileName == "robots.txt" || fileName == "favicon.ico")
                     {
                         outputFile = buildPath(outputPath, fileName);
+                        writeln("DEBUG: Special file (", fileName, ") - Source: ", entry);
+                        writeln("DEBUG: Special file (", fileName, ") - Dest: ", outputFile);
+                        copy(entry, outputFile);
+                        writeln("DEBUG: Successfully copied special file to root: ", entry, " -> ", outputFile);
                     }
                     else
                     {
+                        // Rule 2: Mirror other files to build root (not build/static)
                         outputFile = buildPath(outputPath, relativePath);
                         string outputDir = dirName(outputFile);
+                        writeln("DEBUG: *** NEW CODE RUNNING *** Regular file - Source: ", entry);
+                        writeln("DEBUG: *** NEW CODE RUNNING *** Regular file - Dest: ", outputFile);
                         if (!exists(outputDir))
                         {
+                            writeln("DEBUG: Creating directory: ", outputDir);
                             mkdirRecurse(outputDir);
                         }
+                        copy(entry, outputFile);
+                        writeln("DEBUG: Successfully copied regular file to build root: ", entry, " -> ", outputFile);
                     }
-
-                    copy(entry, outputFile);
                 }
             }
+            writeln("DEBUG: Finished processing all files in project static folder");
         }
+        else
+        {
+            writeln("DEBUG: Project static path does not exist: ", projectStaticPath);
+        }
+
+        writeln("DEBUG: copyStaticFiles method completed");
     }
 
     void renderSite(ContentCollection collection)
     {
+        writeln("DEBUG: renderSite called");
         foreach (content; collection.items)
         {
             renderContent(content);
         }
+        writeln("DEBUG: About to call renderIndex");
         renderIndex(collection);
+        writeln("DEBUG: About to call copyStaticFiles");
         copyStaticFiles();
+        writeln("DEBUG: copyStaticFiles completed");
     }
 }

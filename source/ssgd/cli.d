@@ -28,22 +28,22 @@ class CLI
         string[] commandArgs = args[2 .. $];
         switch (command)
         {
-        case "init":
-            return initCommand(commandArgs);
-        case "build":
-            return buildCommand(commandArgs);
-        case "serve":
-            return serveCommand(commandArgs);
-        case "help":
-            printUsage();
-            return 0;
-        case "version":
-            writeln("SSGD version " ~ VERSION);
-            return 0;
-        default:
-            writeln("Unknown command: ", command);
-            printUsage();
-            return 1;
+            case "init":
+                return initCommand(commandArgs);
+            case "build":
+                return buildCommand(commandArgs);
+            case "serve":
+                return serveCommand(commandArgs);
+            case "help":
+                printUsage();
+                return 0;
+            case "version":
+                writeln("SSGD version " ~ VERSION);
+                return 0;
+            default:
+                writeln("Unknown command: ", command);
+                printUsage();
+                return 1;
         }
     }
 
@@ -83,19 +83,15 @@ class CLI
         mkdirRecurse(buildPath(path, "site", "content", "posts"));
         mkdirRecurse(buildPath(path, "site", "content", "pages"));
         mkdirRecurse(buildPath(path, "site", "templates"));
-        writeln("Creating static folder: ", buildPath(path, "static"));
-        mkdirRecurse(buildPath(path, "static"));
+        writeln("Creating static folder: ", buildPath(path, "site", "static"));
+        mkdirRecurse(buildPath(path, "site", "static"));
         mkdirRecurse(buildPath(path, "build"));
         generateSampleContent(path);
-
-        // Create default templates
         generateTemplates(path);
-
-        // Create default static files
         writeln("Generating default static files...");
         generateDefaultStaticFiles(path);
+        generateDefaultStylesheet(path);
         writeln("Static files generation complete.");
-
         writeln("Site initialized successfully!");
         writeln("Run 'ssgd build' to generate the site.");
         return 0;
@@ -103,9 +99,9 @@ class CLI
 
     int buildCommand(string[] args)
     {
-        string contentPath = "site/content";
-        string outputPath = "build";
-        string themePath = "site";
+        string contentPath = "site/content/";
+        string outputPath = "build/";
+        string themePath = "site/";
         string siteName = "SSGD Site";
         string siteUrl = "/";
         string paginationStr = "20";

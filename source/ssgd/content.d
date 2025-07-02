@@ -66,20 +66,20 @@ class Content
         auto value = parts[2].strip();
         switch (key)
         {
-        case "title":
-            title = value;
-            break;
-        case "author":
-            author = value;
-            break;
-        case "slug":
-            setSlug(value);
-            break;
-        case "date":
-            parseDate(value);
-            break;
-        default:
-            break;
+            case "title":
+                title = value;
+                break;
+            case "author":
+                author = value;
+                break;
+            case "slug":
+                setSlug(value);
+                break;
+            case "date":
+                parseDate(value);
+                break;
+            default:
+                break;
         }
     }
 

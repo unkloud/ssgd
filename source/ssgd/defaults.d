@@ -132,7 +132,7 @@ immutable string BASE_TEMPLATE =
     "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
     "  <title>{{title}}</title>\n" ~
     "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
-    DEFAULT_STYLESHEET ~
+    "  <link rel=\"stylesheet\" href=\"/static/style.css\">\n" ~
     "</head>\n" ~
     "<body>\n" ~
     "  <header class=\"site-header\">\n" ~
@@ -167,7 +167,7 @@ immutable string INDEX_TEMPLATE =
     "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
     "  <title>{{siteName}}</title>\n" ~
     "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
-    DEFAULT_STYLESHEET ~
+    "  <link rel=\"stylesheet\" href=\"/static/style.css\">\n" ~
     "  <style>\n" ~
     "    /* Posts list styling */\n" ~
     "    .posts-section {\n" ~
@@ -262,7 +262,7 @@ immutable string POST_TEMPLATE =
     "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
     "  <title>{{title}} - {{siteName}}</title>\n" ~
     "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
-    DEFAULT_STYLESHEET ~
+    "  <link rel=\"stylesheet\" href=\"/static/style.css\">\n" ~
     "  <style>\n" ~
     "    /* Article styling */\n" ~
     "    .article {\n" ~
@@ -420,7 +420,7 @@ immutable string PAGE_TEMPLATE =
     "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" ~
     "  <title>{{title}} - {{siteName}}</title>\n" ~
     "  <link rel=\"stylesheet\" href=\"https://unpkg.com/chota@latest\">\n" ~
-    DEFAULT_STYLESHEET ~
+    "  <link rel=\"stylesheet\" href=\"/static/style.css\">\n" ~
     "  <style>\n" ~
     "    /* Page styling */\n" ~
     "    .page {\n" ~
@@ -664,7 +664,10 @@ void generateTemplates(string path)
 
 void generateDefaultStylesheet(string path)
 {
-    std.file.write(buildPath(path, "site", "static", "css", "default.css"), DEFAULT_CSS);
+    string staticDir = buildPath(path, "site", "static");
+    mkdirRecurse(staticDir);
+    string cssPath = buildPath(staticDir, "style.css");
+    std.file.write(cssPath, DEFAULT_CSS);
 }
 
 void generateDefaultStaticFiles(string path)
@@ -673,6 +676,5 @@ void generateDefaultStaticFiles(string path)
     immutable string DEFAULT_ROBOTS_TXT =
         "User-agent: *\n" ~
         "Disallow: /\n";
-
-    std.file.write(buildPath(path, "static", "robots.txt"), DEFAULT_ROBOTS_TXT);
+    std.file.write(buildPath(path, "site", "static", "robots.txt"), DEFAULT_ROBOTS_TXT);
 }
