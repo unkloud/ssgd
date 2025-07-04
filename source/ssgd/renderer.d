@@ -134,9 +134,9 @@ class Renderer
             for (int i = startIndex; i < endIndex; i++)
             {
                 auto post = posts[i];
-                postsHtml ~= "<li><a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a> ";
-                postsHtml ~= "<span class=\"date\">" ~ post.date.toISOExtString()
-                    .split('T')[0] ~ "</span></li>\n";
+                postsHtml ~= "<li><span class=\"date\">" ~ post.date.toISOExtString()
+                    .split('T')[0] ~ "</span>\n";
+                postsHtml ~= "<a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a></li>\n";
             }
             vars["posts"] = postsHtml;
             string paginationHtml = "";
