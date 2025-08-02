@@ -28,7 +28,7 @@
 *.out
 *.app
 ./build/
-.idea/
+/.idea/
 /ssgd
 /build/
 /site/

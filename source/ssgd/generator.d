@@ -9,39 +9,27 @@ import std.stdio;
 import ssgd.content;
 import ssgd.markdown;
 import ssgd.renderer;
+import ssgd.config;
 
 class SiteGenerator
 {
-    string contentPath;
-    string outputPath;
-    string themePath;
-    string siteName;
-    string siteUrl;
-    string copyright;
-    int pagination;
+    SiteConfig config;
     ContentCollection collection;
     MarkdownProcessor markdownProcessor;
     Renderer renderer;
 
-    this(string contentPath, string outputPath, string themePath,
-        string siteName = "SSGD Site", string siteUrl = "/",
-        int pagination = 20, string copyright = "Copyright © 2025")
+    this(SiteConfig config)
     {
-        this.contentPath = contentPath;
-        this.outputPath = outputPath;
-        this.themePath = themePath;
-        this.siteName = siteName;
-        this.siteUrl = siteUrl;
-        this.pagination = pagination;
-        this.copyright = copyright;
+        this.config = config;
         collection = new ContentCollection();
         markdownProcessor = new MarkdownProcessor();
-        renderer = new Renderer(themePath, outputPath, siteName, siteUrl, copyright, pagination);
+        renderer = new Renderer(config.themePath, config.outputPath,
+                config.siteName, config.siteUrl, config.copyright, config.pagination);
     }
 
     void loadContent()
     {
-        string postsPath = buildPath(contentPath, "posts");
+        string postsPath = buildPath(config.contentPath, "posts");
         if (exists(postsPath) && isDir(postsPath))
         {
             foreach (string entry; dirEntries(postsPath, "*.md", SpanMode.shallow))
@@ -58,7 +46,7 @@ class SiteGenerator
                 }
             }
         }
-        string pagesPath = buildPath(contentPath, "pages");
+        string pagesPath = buildPath(config.contentPath, "pages");
         if (exists(pagesPath) && isDir(pagesPath))
         {
             foreach (string entry; dirEntries(pagesPath, "*.md", SpanMode.shallow))

@@ -34,15 +34,8 @@ unittest
         cleanupTestDir(testDir);
 
     string testFile = buildPath(testDir, "test.md");
-    string testContent =
-        "Title: Test Post\n" ~
-        "Author: Test Author\n" ~
-        "Date: 2025-01-15\n" ~
-        "Slug: test-post\n" ~
-        "\n" ~
-        "# Test Content\n" ~
-        "\n" ~
-        "This is test content.";
+    string testContent = "Title: Test Post\n" ~ "Author: Test Author\n" ~ "Date: 2025-01-15\n"
+        ~ "Slug: test-post\n" ~ "\n" ~ "# Test Content\n" ~ "\n" ~ "This is test content.";
     std.file.write(testFile, testContent);
 
     auto content = new Content(testFile, "post");
@@ -50,7 +43,8 @@ unittest
     assert(content.author == "Test Author", "Author parsing failed");
     assert(content.slug == "test-post", "Slug parsing failed");
     assert(content.date == Date(2025, 1, 15), "Date parsing failed");
-    assert(content.content == "# Test Content\n\nThis is test content.", "Content extraction failed");
+    assert(content.content == "# Test Content\n\nThis is test content.",
+            "Content extraction failed");
     assert(content.url == "/posts/test-post.html", "URL generation failed");
     writeln("[DEBUG_LOG] Basic content parsing test: PASSED");
 }
@@ -63,10 +57,7 @@ unittest
         cleanupTestDir(testDir);
 
     string testFile = buildPath(testDir, "minimal.md");
-    string testContent =
-        "Title: Minimal Post\n" ~
-        "\n" ~
-        "Just content here.";
+    string testContent = "Title: Minimal Post\n" ~ "\n" ~ "Just content here.";
     std.file.write(testFile, testContent);
 
     auto content = new Content(testFile, "post");
@@ -85,11 +76,8 @@ unittest
         cleanupTestDir(testDir);
 
     string testFile = buildPath(testDir, "invalid_date.md");
-    string testContent =
-        "Title: Invalid Date Post\n" ~
-        "Date: invalid-date\n" ~
-        "\n" ~
-        "Content with invalid date.";
+    string testContent = "Title: Invalid Date Post\n" ~ "Date: invalid-date\n"
+        ~ "\n" ~ "Content with invalid date.";
     std.file.write(testFile, testContent);
 
     auto content = new Content(testFile, "post");
@@ -107,11 +95,7 @@ unittest
         cleanupTestDir(testDir);
 
     string testFile = buildPath(testDir, "page.md");
-    string testContent =
-        "Title: Test Page\n" ~
-        "Slug: test-page\n" ~
-        "\n" ~
-        "Page content.";
+    string testContent = "Title: Test Page\n" ~ "Slug: test-page\n" ~ "\n" ~ "Page content.";
     std.file.write(testFile, testContent);
 
     auto content = new Content(testFile, "page");

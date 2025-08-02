@@ -21,7 +21,7 @@ class Renderer
     int pagination;
 
     this(string themePath, string outputPath, string siteName = "SSGD Site",
-        string siteUrl = "/", string copyright = "Copyright © 2025", int pagination = 20)
+            string siteUrl = "/", string copyright = "Copyright © 2025", int pagination = 20)
     {
         this.themePath = themePath;
         this.outputPath = outputPath;
@@ -146,27 +146,29 @@ class Renderer
                 if (page > 1)
                 {
                     string prevUrl = page == 2 ? "index.html" : "page" ~ to!string(
-                        page - 1) ~ ".html";
-                    paginationHtml ~= "  <a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>\n";
+                            page - 1) ~ ".html";
+                    paginationHtml ~= "  <a href=\"" ~ prevUrl
+                        ~ "\" class=\"prev\">&laquo; Previous</a>\n";
                 }
                 for (int p = 1; p <= totalPages; p++)
                 {
                     string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
                     string activeClass = p == page ? " class=\"active\"" : "";
                     paginationHtml ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(
-                        p) ~ "</a>\n";
+                            p) ~ "</a>\n";
                 }
                 if (page < totalPages)
                 {
                     string nextUrl = "page" ~ to!string(page + 1) ~ ".html";
-                    paginationHtml ~= "  <a href=\"" ~ nextUrl ~ "\" class=\"next\">Next &raquo;</a>\n";
+                    paginationHtml ~= "  <a href=\"" ~ nextUrl
+                        ~ "\" class=\"next\">Next &raquo;</a>\n";
                 }
                 paginationHtml ~= "</nav>\n";
             }
             vars["pagination"] = paginationHtml;
             string html = renderTemplate(templatePath, vars);
-            string outputFile = page == 1 ? buildPath(outputPath, "index.html") : buildPath(outputPath, "page" ~ to!string(
-                    page) ~ ".html");
+            string outputFile = page == 1 ? buildPath(outputPath, "index.html") : buildPath(outputPath,
+                    "page" ~ to!string(page) ~ ".html");
             std.file.write(outputFile, html);
         }
     }
