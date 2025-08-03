@@ -116,6 +116,32 @@ class Content
             content = lines[startIndex .. $].join("\n");
         }
     }
+
+    string getExcerpt()
+    {
+        if (content.empty)
+            return "";
+        
+        auto paragraphs = content.split("\n\n");
+        string excerpt = "";
+        int paragraphCount = 0;
+        
+        foreach (paragraph; paragraphs)
+        {
+            auto trimmed = paragraph.strip();
+            if (!trimmed.empty && !trimmed.startsWith("#"))
+            {
+                if (paragraphCount > 0)
+                    excerpt ~= "\n\n";
+                excerpt ~= trimmed;
+                paragraphCount++;
+                if (paragraphCount >= 2)
+                    break;
+            }
+        }
+        
+        return excerpt;
+    }
 }
 
 class ContentCollection

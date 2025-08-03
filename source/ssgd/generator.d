@@ -10,6 +10,7 @@ import ssgd.content;
 import ssgd.markdown;
 import ssgd.renderer;
 import ssgd.config;
+import ssgd.pagination;
 
 class SiteGenerator
 {
@@ -24,7 +25,7 @@ class SiteGenerator
         collection = new ContentCollection();
         markdownProcessor = new MarkdownProcessor();
         renderer = new Renderer(config.themePath, config.outputPath,
-                config.siteName, config.siteUrl, config.copyright, config.pagination);
+                config.siteName, config.siteUrl, config.copyright, Pagination(config.pagination));
     }
 
     void loadContent()

@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Remove debug logs and unnecessary newlines for cleaner and streamlined code.">
-      <change afterPath="$PROJECT_DIR$/.junie/guidelines.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Introduce foundational modules for a new static site generator in D">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dub.selections.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.selections.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/app.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/app.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/cli.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/cli.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/content.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/content.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/content_test.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/content_test.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/defaults.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/defaults.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/generator.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/generator.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +50,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.2421875",
     "project.structure.side.proportion": "0.25290322",
     "settings.editor.selected.configurable": "preferences.lookFeel",
@@ -126,7 +116,9 @@
     <MESSAGE value="Update workspace configuration comments to reflect recent changes." />
     <MESSAGE value="Remove references to Hugo Zen theme for cleaner and more neutral templates" />
     <MESSAGE value="Remove debug logs and unnecessary newlines for cleaner and streamlined code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove debug logs and unnecessary newlines for cleaner and streamlined code." />
+    <MESSAGE value="Refactoring " />
+    <MESSAGE value="Introduce foundational modules for a new static site generator in D" />
+    <option name="LAST_COMMIT_MESSAGE" value="Introduce foundational modules for a new static site generator in D" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

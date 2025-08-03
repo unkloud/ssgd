@@ -221,8 +221,27 @@ source/
     └── renderer.d         # Template rendering and output
 tests/
 ├── test_runner.d          # Test suite runner
-└── content_test.d         # Content parsing tests
+├── content_test.d         # Content parsing tests
+└── pagination_test.d      # Multiple page support tests
 ```
+
+### Test Coverage
+
+**Content Tests (`content_test.d`):**
+- Basic content parsing and metadata extraction
+- Missing metadata handling
+- Invalid date parsing with fallback to current date
+- Page vs post content type differentiation
+- File not found exception handling
+- Content collection functionality
+
+**Pagination Tests (`pagination_test.d`):**
+- Pagination calculation with different post counts (0, exact fit, multiple pages)
+- Single page vs multiple page scenarios
+- Post distribution across pages
+- Pagination HTML generation with navigation links
+- URL generation for page files (index.html, page2.html, etc.)
+- Post sorting by date (newest first)
 
 ### Key Classes
 

@@ -10,6 +10,7 @@ import std.datetime.date;
 import std.regex;
 import std.stdio;
 import ssgd.content;
+import ssgd.pagination;
 
 class Renderer
 {
@@ -18,10 +19,10 @@ class Renderer
     string siteName;
     string siteUrl;
     string copyright;
-    int pagination;
+    Pagination pagination;
 
     this(string themePath, string outputPath, string siteName = "SSGD Site",
-            string siteUrl = "/", string copyright = "Copyright © 2025", int pagination = 20)
+            string siteUrl = "/", string copyright = "Copyright © 2025", Pagination pagination = Pagination(20))
     {
         this.themePath = themePath;
         this.outputPath = outputPath;
@@ -116,59 +117,42 @@ class Renderer
         auto posts = collection.getPosts();
         posts.sort!((a, b) => a.date > b.date);
         int totalPosts = cast(int) posts.length;
-        int totalPages = (totalPosts + pagination - 1) / pagination; // Ceiling division
-        if (totalPages == 0)
-            totalPages = 1;
-        for (int page = 1; page <= totalPages; page++)
+        pagination.setTotalItems(totalPosts);
+        for (int page = 1; page <= pagination.totalPages; page++)
         {
+            pagination.setCurrentPage(page);
             string[string] vars;
             vars["title"] = siteName;
             vars["copyright"] = copyright;
             vars["siteName"] = siteName;
             vars["siteUrl"] = siteUrl;
-            int startIndex = (page - 1) * pagination;
-            int endIndex = startIndex + pagination;
-            if (endIndex > totalPosts)
-                endIndex = totalPosts;
+            int startIndex = pagination.getStartIndex();
+            int endIndex = pagination.getEndIndex();
             string postsHtml = "";
             for (int i = startIndex; i < endIndex; i++)
             {
                 auto post = posts[i];
-                postsHtml ~= "<li><span class=\"date\">" ~ post.date.toISOExtString()
-                    .split('T')[0] ~ "</span>\n";
-                postsHtml ~= "<a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a></li>\n";
+                postsHtml ~= "<div class=\"post-item\">\n";
+                postsHtml ~= "  <h3 class=\"post-title\"><a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a></h3>\n";
+                postsHtml ~= "  <div class=\"post-meta\">\n";
+                postsHtml ~= "    <span>📅 " ~ formatDate(post.date) ~ "</span>\n";
+                if (post.author && !post.author.empty)
+                {
+                    postsHtml ~= "    <span>✍️ " ~ post.author ~ "</span>\n";
+                }
+                postsHtml ~= "  </div>\n";
+                string excerpt = post.getExcerpt();
+                if (!excerpt.empty)
+                {
+                    postsHtml ~= "  <div class=\"post-excerpt\">" ~ excerpt ~ "</div>\n";
+                }
+                postsHtml ~= "  <a href=\"" ~ post.url ~ "\" class=\"read-more\">Read more →</a>\n";
+                postsHtml ~= "</div>\n";
             }
             vars["posts"] = postsHtml;
-            string paginationHtml = "";
-            if (totalPages > 1)
-            {
-                paginationHtml ~= "<nav class=\"pagination\">\n";
-                if (page > 1)
-                {
-                    string prevUrl = page == 2 ? "index.html" : "page" ~ to!string(
-                            page - 1) ~ ".html";
-                    paginationHtml ~= "  <a href=\"" ~ prevUrl
-                        ~ "\" class=\"prev\">&laquo; Previous</a>\n";
-                }
-                for (int p = 1; p <= totalPages; p++)
-                {
-                    string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
-                    string activeClass = p == page ? " class=\"active\"" : "";
-                    paginationHtml ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(
-                            p) ~ "</a>\n";
-                }
-                if (page < totalPages)
-                {
-                    string nextUrl = "page" ~ to!string(page + 1) ~ ".html";
-                    paginationHtml ~= "  <a href=\"" ~ nextUrl
-                        ~ "\" class=\"next\">Next &raquo;</a>\n";
-                }
-                paginationHtml ~= "</nav>\n";
-            }
-            vars["pagination"] = paginationHtml;
+            vars["pagination"] = pagination.generateHtml();
             string html = renderTemplate(templatePath, vars);
-            string outputFile = page == 1 ? buildPath(outputPath, "index.html") : buildPath(outputPath,
-                    "page" ~ to!string(page) ~ ".html");
+            string outputFile = buildPath(outputPath, pagination.getPageFilename());
             std.file.write(outputFile, html);
         }
     }
