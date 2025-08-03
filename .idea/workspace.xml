@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Introduce foundational modules for a new static site generator in D">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Implement pagination support with associated tests and HTML generation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,7 +48,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.2421875",
     "project.structure.side.proportion": "0.25290322",
     "settings.editor.selected.configurable": "preferences.lookFeel",
@@ -64,9 +62,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="NimRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration default="true" type="Application" factoryName="Application">
       <method v="2">
-        <option name="nim.task.build.to.cache" enabled="true" />
+        <option name="Make" enabled="true" />
       </method>
     </configuration>
   </component>
@@ -118,7 +116,8 @@
     <MESSAGE value="Remove debug logs and unnecessary newlines for cleaner and streamlined code." />
     <MESSAGE value="Refactoring " />
     <MESSAGE value="Introduce foundational modules for a new static site generator in D" />
-    <option name="LAST_COMMIT_MESSAGE" value="Introduce foundational modules for a new static site generator in D" />
+    <MESSAGE value="Implement pagination support with associated tests and HTML generation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement pagination support with associated tests and HTML generation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
