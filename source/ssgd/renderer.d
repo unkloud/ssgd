@@ -9,6 +9,7 @@ import std.conv;
 import std.datetime.date;
 import std.regex;
 import std.stdio;
+import commonmarkd;
 import ssgd.content;
 import ssgd.pagination;
 
@@ -129,7 +130,8 @@ class Renderer
             string excerpt = post.getExcerpt();
             if (!excerpt.empty)
             {
-                html ~= "  <div class=\"post-excerpt\">" ~ excerpt ~ "</div>\n";
+                string htmlExcerpt = convertMarkdownToHTML(excerpt);
+                html ~= "  <div class=\"post-excerpt\">" ~ htmlExcerpt ~ "</div>\n";
             }
             html ~= "  <a href=\"" ~ post.url ~ "\" class=\"read-more\">Read more →</a>\n";
             html ~= "</div>\n";
@@ -142,7 +144,7 @@ class Renderer
         vars["date"] = formatDate(post.date);
         vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>" : "";
         string excerpt = post.getExcerpt();
-        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ excerpt ~ "</div>" : "";
+        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
         
         string templateContent = readText(templatePath);
         return replaceTemplateVariables(templateContent, vars);

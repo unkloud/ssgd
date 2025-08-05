@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update workspace configuration to reflect recent changes in pagination implementation">
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Integrate centralized template management and enhance pagination with reusable HTML.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/pagination.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/pagination.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/styles.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/styles.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/templates.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/templates.d" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +97,6 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update `.gitignore` and adjust output directory references in documentation" />
     <MESSAGE value="Add core SSGD functionality: content handling, CLI, and rendering" />
     <MESSAGE value="Remove default CSS generation and update templates to exclude stylesheet references" />
     <MESSAGE value="Update navigation structure to include `nav-right` container and dynamically display `siteName`" />
@@ -124,7 +120,9 @@
     <MESSAGE value="Introduce foundational modules for a new static site generator in D" />
     <MESSAGE value="Implement pagination support with associated tests and HTML generation" />
     <MESSAGE value="Update workspace configuration to reflect recent changes in pagination implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update workspace configuration to reflect recent changes in pagination implementation" />
+    <MESSAGE value="Redesign templates and integrate default styling files. Introduce template-based pagination rendering for improved modularity. Update workspace configuration accordingly." />
+    <MESSAGE value="Integrate centralized template management and enhance pagination with reusable HTML." />
+    <option name="LAST_COMMIT_MESSAGE" value="Integrate centralized template management and enhance pagination with reusable HTML." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
