@@ -111,6 +111,43 @@ class Renderer
         return date.toISOExtString().split('T')[0];
     }
 
+    private string renderPostItem(Content post)
+    {
+        string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "post_item.html");
+        if (!exists(templatePath))
+        {
+            // Fallback to simple HTML if template not found
+            string html = "<div class=\"post-item\">\n";
+            html ~= "  <h3 class=\"post-title\"><a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a></h3>\n";
+            html ~= "  <div class=\"post-meta\">\n";
+            html ~= "    <span>📅 " ~ formatDate(post.date) ~ "</span>\n";
+            if (post.author && !post.author.empty)
+            {
+                html ~= "    <span>✍️ " ~ post.author ~ "</span>\n";
+            }
+            html ~= "  </div>\n";
+            string excerpt = post.getExcerpt();
+            if (!excerpt.empty)
+            {
+                html ~= "  <div class=\"post-excerpt\">" ~ excerpt ~ "</div>\n";
+            }
+            html ~= "  <a href=\"" ~ post.url ~ "\" class=\"read-more\">Read more →</a>\n";
+            html ~= "</div>\n";
+            return html;
+        }
+        
+        string[string] vars;
+        vars["url"] = post.url;
+        vars["title"] = post.title ? post.title : "Untitled";
+        vars["date"] = formatDate(post.date);
+        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>" : "";
+        string excerpt = post.getExcerpt();
+        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ excerpt ~ "</div>" : "";
+        
+        string templateContent = readText(templatePath);
+        return replaceTemplateVariables(templateContent, vars);
+    }
+
     void renderIndex(ContentCollection collection)
     {
         string templatePath = buildPath(themePath, "templates", "index.html");
@@ -132,22 +169,7 @@ class Renderer
             for (int i = startIndex; i < endIndex; i++)
             {
                 auto post = posts[i];
-                postsHtml ~= "<div class=\"post-item\">\n";
-                postsHtml ~= "  <h3 class=\"post-title\"><a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a></h3>\n";
-                postsHtml ~= "  <div class=\"post-meta\">\n";
-                postsHtml ~= "    <span>📅 " ~ formatDate(post.date) ~ "</span>\n";
-                if (post.author && !post.author.empty)
-                {
-                    postsHtml ~= "    <span>✍️ " ~ post.author ~ "</span>\n";
-                }
-                postsHtml ~= "  </div>\n";
-                string excerpt = post.getExcerpt();
-                if (!excerpt.empty)
-                {
-                    postsHtml ~= "  <div class=\"post-excerpt\">" ~ excerpt ~ "</div>\n";
-                }
-                postsHtml ~= "  <a href=\"" ~ post.url ~ "\" class=\"read-more\">Read more →</a>\n";
-                postsHtml ~= "</div>\n";
+                postsHtml ~= renderPostItem(post);
             }
             vars["posts"] = postsHtml;
             vars["pagination"] = pagination.generateHtml();

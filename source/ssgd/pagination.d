@@ -2,6 +2,8 @@ module ssgd.pagination;
 
 import std.conv;
 import std.string;
+import std.file;
+import std.path;
 import ssgd.content;
 
 struct Pagination
@@ -55,29 +57,59 @@ struct Pagination
         if (!hasMultiplePages())
             return "";
         
-        string html = "<nav class=\"pagination\">\n";
+        string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "pagination.html");
+        if (!exists(templatePath))
+        {
+            // Fallback to original string concatenation if template not found
+            string html = "<nav class=\"pagination\">\n";
+            if (currentPage > 1)
+            {
+                string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(currentPage - 1) ~ ".html";
+                html ~= "  <a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>\n";
+            }
+            for (int p = 1; p <= totalPages; p++)
+            {
+                string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
+                string activeClass = p == currentPage ? " class=\"active\"" : "";
+                html ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(p) ~ "</a>\n";
+            }
+            if (currentPage < totalPages)
+            {
+                string nextUrl = "page" ~ to!string(currentPage + 1) ~ ".html";
+                html ~= "  <a href=\"" ~ nextUrl ~ "\" class=\"next\">Next &raquo;</a>\n";
+            }
+            html ~= "</nav>\n";
+            return html;
+        }
         
+        string prevLink = "";
         if (currentPage > 1)
         {
             string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(currentPage - 1) ~ ".html";
-            html ~= "  <a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>\n";
+            prevLink = "<a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>";
         }
         
+        string pageLinks = "";
         for (int p = 1; p <= totalPages; p++)
         {
             string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
             string activeClass = p == currentPage ? " class=\"active\"" : "";
-            html ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(p) ~ "</a>\n";
+            pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(p) ~ "</a>\n";
         }
         
+        string nextLink = "";
         if (currentPage < totalPages)
         {
             string nextUrl = "page" ~ to!string(currentPage + 1) ~ ".html";
-            html ~= "  <a href=\"" ~ nextUrl ~ "\" class=\"next\">Next &raquo;</a>\n";
+            nextLink = "<a href=\"" ~ nextUrl ~ "\" class=\"next\">Next &raquo;</a>";
         }
         
-        html ~= "</nav>\n";
-        return html;
+        string templateContent = readText(templatePath);
+        templateContent = templateContent.replace("{{prevLink}}", prevLink);
+        templateContent = templateContent.replace("{{pageLinks}}", pageLinks);
+        templateContent = templateContent.replace("{{nextLink}}", nextLink);
+        
+        return templateContent;
     }
 
     string getPageFilename()
