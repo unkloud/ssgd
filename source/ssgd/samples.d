@@ -21,12 +21,17 @@ immutable string DEFAULT_ROBOTS_TXT = "User-agent: *\n" ~ "Disallow: /\n";
 // Functions to generate sample content and static files
 void generateSampleContent(string path)
 {
-    std.file.write(buildPath(path, "site", "content", "posts",
-            "hello-world.md"), HELLO_WORLD_CONTENT);
-    std.file.write(buildPath(path, "site", "content", "pages", "about.md"), ABOUT_PAGE_CONTENT);
+    auto postsDir = buildPath(path, "site", "content", "posts");
+    auto pagesDir = buildPath(path, "site", "content", "pages");
+    mkdirRecurse(postsDir);
+    mkdirRecurse(pagesDir);
+    std.file.write(buildPath(postsDir, "hello-world.md"), HELLO_WORLD_CONTENT);
+    std.file.write(buildPath(pagesDir, "about.md"), ABOUT_PAGE_CONTENT);
 }
 
 void generateDefaultStaticFiles(string path)
 {
-    std.file.write(buildPath(path, "site", "static", "robots.txt"), DEFAULT_ROBOTS_TXT);
+    auto staticDir = buildPath(path, "site", "static");
+    mkdirRecurse(staticDir);
+    std.file.write(buildPath(staticDir, "robots.txt"), DEFAULT_ROBOTS_TXT);
 }

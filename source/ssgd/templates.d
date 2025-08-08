@@ -36,8 +36,10 @@ string getDefaultTemplate(string templateName)
 // Function to generate templates
 void generateTemplates(string path)
 {
-    std.file.write(buildPath(path, "site", "templates", "base.html"), getTemplateContent("base.html"));
-    std.file.write(buildPath(path, "site", "templates", "index.html"), getTemplateContent("index.html"));
-    std.file.write(buildPath(path, "site", "templates", "post.html"), getTemplateContent("post.html"));
-    std.file.write(buildPath(path, "site", "templates", "page.html"), getTemplateContent("page.html"));
+    auto tplDir = buildPath(path, "site", "templates");
+    mkdirRecurse(tplDir);
+    std.file.write(buildPath(tplDir, "base.html"), getTemplateContent("base.html"));
+    std.file.write(buildPath(tplDir, "index.html"), getTemplateContent("index.html"));
+    std.file.write(buildPath(tplDir, "post.html"), getTemplateContent("post.html"));
+    std.file.write(buildPath(tplDir, "page.html"), getTemplateContent("page.html"));
 }

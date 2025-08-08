@@ -31,15 +31,23 @@ struct Pagination
 
     void setCurrentPage(int page)
     {
-        this.currentPage = page;
+        // Clamp within valid range to avoid out-of-bounds when slicing posts
+        if (totalPages < 1)
+            totalPages = 1;
+        if (page < 1)
+            this.currentPage = 1;
+        else if (page > totalPages)
+            this.currentPage = totalPages;
+        else
+            this.currentPage = page;
     }
 
-    int getStartIndex()
+    int getStartIndex() const
     {
         return (currentPage - 1) * itemsPerPage;
     }
 
-    int getEndIndex()
+    int getEndIndex() const
     {
         int endIndex = getStartIndex() + itemsPerPage;
         if (endIndex > totalItems)
@@ -47,12 +55,12 @@ struct Pagination
         return endIndex;
     }
 
-    bool hasMultiplePages()
+    bool hasMultiplePages() const
     {
         return totalPages > 1;
     }
 
-    string generateHtml()
+    string generateHtml() const
     {
         if (!hasMultiplePages())
             return "";
@@ -112,7 +120,7 @@ struct Pagination
         return templateContent;
     }
 
-    string getPageFilename()
+    string getPageFilename() const
     {
         return currentPage == 1 ? "index.html" : "page" ~ to!string(currentPage) ~ ".html";
     }

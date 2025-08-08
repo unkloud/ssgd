@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Integrate centralized template management and enhance pagination with reusable HTML.">
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Convert post excerpts to HTML using Markdown for better content rendering.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/pagination.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/pagination.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/samples.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/samples.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/templates.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/templates.d" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,10 +55,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.2421875",
     "project.structure.side.proportion": "0.25290322",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "junie.application.models",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -97,7 +100,6 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add core SSGD functionality: content handling, CLI, and rendering" />
     <MESSAGE value="Remove default CSS generation and update templates to exclude stylesheet references" />
     <MESSAGE value="Update navigation structure to include `nav-right` container and dynamically display `siteName`" />
     <MESSAGE value="Add pagination support with CLI option and enhance index rendering logic" />
@@ -122,7 +124,8 @@
     <MESSAGE value="Update workspace configuration to reflect recent changes in pagination implementation" />
     <MESSAGE value="Redesign templates and integrate default styling files. Introduce template-based pagination rendering for improved modularity. Update workspace configuration accordingly." />
     <MESSAGE value="Integrate centralized template management and enhance pagination with reusable HTML." />
-    <option name="LAST_COMMIT_MESSAGE" value="Integrate centralized template management and enhance pagination with reusable HTML." />
+    <MESSAGE value="Convert post excerpts to HTML using Markdown for better content rendering." />
+    <option name="LAST_COMMIT_MESSAGE" value="Convert post excerpts to HTML using Markdown for better content rendering." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

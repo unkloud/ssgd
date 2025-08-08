@@ -183,53 +183,31 @@ class Renderer
 
     void copyStaticFiles()
     {
-        string themeStaticPath = buildPath(themePath, "static");
-        if (exists(themeStaticPath))
+        // Copy files from <themePath>/static into output. Special-case robots.txt and favicon.ico to output root.
+        string staticPath = buildPath(themePath, "static");
+        if (!exists(staticPath))
+            return;
+        foreach (string entry; dirEntries(staticPath, SpanMode.breadth))
         {
-            foreach (string entry; dirEntries(themeStaticPath, SpanMode.breadth))
+            if (!isFile(entry))
+                continue;
+            string fileName = baseName(entry);
+            // robots.txt and favicon.ico should be at site root
+            if (fileName == "robots.txt" || fileName == "favicon.ico")
             {
-                if (isFile(entry))
-                {
-                    string relativePath = entry[themeStaticPath.length + 1 .. $];
-                    string outputFile = buildPath(outputPath, relativePath);
-                    string outputDir = dirName(outputFile);
-                    if (!exists(outputDir))
-                    {
-                        mkdirRecurse(outputDir);
-                    }
-                    copy(entry, outputFile);
-                }
+                string rootTarget = buildPath(outputPath, fileName);
+                copy(entry, rootTarget);
+                continue;
             }
-        }
-        string projectStaticPath = buildPath(themePath, "static");
-        if (exists(projectStaticPath))
-        {
-            foreach (string entry; dirEntries(projectStaticPath, SpanMode.breadth))
+            // Everything else mirrors under output/static/...
+            string relativeFromStatic = entry[staticPath.length + 1 .. $];
+            string outputFile = buildPath(outputPath, relativeFromStatic);
+            string outputDir = dirName(outputFile);
+            if (!exists(outputDir))
             {
-                if (isFile(entry))
-                {
-                    string relativePath = entry[themePath.length .. $];
-                    string fileName = baseName(entry);
-                    string outputFile;
-                    // Rule 1: If file is robots.txt or favicon.ico, copy to build root
-                    if (fileName == "robots.txt" || fileName == "favicon.ico")
-                    {
-                        outputFile = buildPath(outputPath, fileName);
-                        copy(entry, outputFile);
-                    }
-                    else
-                    {
-                        // Rule 2: Mirror other files to build root (not build/static)
-                        outputFile = buildPath(outputPath, relativePath);
-                        string outputDir = dirName(outputFile);
-                        if (!exists(outputDir))
-                        {
-                            mkdirRecurse(outputDir);
-                        }
-                        copy(entry, outputFile);
-                    }
-                }
+                mkdirRecurse(outputDir);
             }
+            copy(entry, outputFile);
         }
     }
 
