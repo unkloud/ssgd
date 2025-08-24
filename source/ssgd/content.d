@@ -121,11 +121,11 @@ class Content
     {
         if (content.empty)
             return "";
-        
+
         auto paragraphs = content.split("\n\n");
         string excerpt = "";
         int paragraphCount = 0;
-        
+
         foreach (paragraph; paragraphs)
         {
             auto trimmed = paragraph.strip();
@@ -139,7 +139,7 @@ class Content
                     break;
             }
         }
-        
+
         return excerpt;
     }
 }

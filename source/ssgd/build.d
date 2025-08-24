@@ -15,8 +15,8 @@ int buildSite(string[] args)
         {
             string[] argsWithProgName = ["ssgd"] ~ args;
             getopt(argsWithProgName, "content", &config.contentPath, "output",
-                    &config.outputPath, "theme", &config.themePath, "name", &config.siteName,
-                    "url", &config.siteUrl, "pagination", &paginationStr);
+                &config.outputPath, "theme", &config.themePath, "name", &config.siteName,
+                "url", &config.siteUrl, "pagination", &paginationStr);
         }
     }
     catch (Exception e)

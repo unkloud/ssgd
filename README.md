@@ -93,7 +93,7 @@ This creates:
 - `site/content/posts/` - Directory for blog posts
 - `site/content/pages/` - Directory for static pages
 - `site/templates/` - HTML templates
-- `site/static/css/` - Static assets (CSS, images, etc.)
+- `site/static/` - Static assets (CSS, images, etc.)
 - `build/` - Output directory
 - Sample content and default theme
 
@@ -151,8 +151,7 @@ my-site/
 │   │   ├── post.html       # Blog post template
 │   │   └── page.html       # Static page template
 │   └── static/             # Static assets
-│       └── css/
-│           └── style.css
+│       └── style.css
 └── build/                  # Generated site output
     ├── index.html
     ├── posts/
@@ -207,6 +206,13 @@ Templates use `{{variable}}` syntax for placeholders:
 
 **Index Page Variables:**
 - `{{posts}}` - List of recent posts (HTML)
+
+## Templates and Stylesheet Resolution
+- The default stylesheet is loaded from the `templates` directory located next to the executable (resolved via the executable's directory).
+- Ensure a `templates/default_stylesheet.css` file exists alongside the built `ssgd` binary.
+- If this file is missing, SSGD will throw an error; no fallback stylesheet is generated.
+- When running from the project root, this is satisfied by the repository's `./templates/default_stylesheet.css`.
+- When distributing the binary, ship the `templates/` directory alongside the executable.
 
 ## Source Code Structure
 

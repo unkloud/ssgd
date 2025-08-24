@@ -23,7 +23,8 @@ class Renderer
     Pagination pagination;
 
     this(string themePath, string outputPath, string siteName = "SSGD Site",
-            string siteUrl = "/", string copyright = "Copyright © 2025", Pagination pagination = Pagination(20))
+        string siteUrl = "/", string copyright = "Copyright © 2025", Pagination pagination = Pagination(
+            20))
     {
         this.themePath = themePath;
         this.outputPath = outputPath;
@@ -45,6 +46,23 @@ class Renderer
         }
         string templateContent = readText(templatePath);
         return replaceTemplateVariables(templateContent, vars);
+    }
+
+    private string applyBase(string innerHtml, string[string] vars)
+    {
+        // If a base.html exists in the theme, wrap the innerHtml into it using {{content}}
+        string basePath = buildPath(themePath, "templates", "base.html");
+        if (!exists(basePath))
+            return innerHtml;
+        string baseTpl = readText(basePath);
+        // Ensure global vars are available in base too
+        auto allVars = vars.dup;
+        allVars["siteName"] = siteName;
+        allVars["siteUrl"] = siteUrl;
+        allVars["copyright"] = copyright;
+        string wrapped = replaceTemplateVariables(baseTpl, allVars);
+        wrapped = wrapped.replace("{{content}}", innerHtml);
+        return wrapped;
     }
 
     private string replaceTemplateVariables(string content, string[string] vars)
@@ -71,6 +89,7 @@ class Renderer
         try
         {
             string html = renderTemplate(templatePath, vars);
+            html = applyBase(html, vars);
             string outputFile = buildPath(outputPath, content.url[1 .. $]);
             std.file.write(outputFile, html);
         }
@@ -137,15 +156,17 @@ class Renderer
             html ~= "</div>\n";
             return html;
         }
-        
+
         string[string] vars;
         vars["url"] = post.url;
         vars["title"] = post.title ? post.title : "Untitled";
         vars["date"] = formatDate(post.date);
-        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>" : "";
+        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>"
+            : "";
         string excerpt = post.getExcerpt();
-        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
-        
+        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(
+            excerpt) ~ "</div>" : "";
+
         string templateContent = readText(templatePath);
         return replaceTemplateVariables(templateContent, vars);
     }
@@ -176,6 +197,7 @@ class Renderer
             vars["posts"] = postsHtml;
             vars["pagination"] = pagination.generateHtml();
             string html = renderTemplate(templatePath, vars);
+            html = applyBase(html, vars);
             string outputFile = buildPath(outputPath, pagination.getPageFilename());
             std.file.write(outputFile, html);
         }

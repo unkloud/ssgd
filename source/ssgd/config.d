@@ -29,7 +29,7 @@ struct SiteConfig
 
     // Method to create configuration from command line arguments
     static SiteConfig fromBuildArgs(string contentPath, string outputPath, string themePath,
-            string siteName, string siteUrl, int pagination, string copyright = "Copyright © 2025")
+        string siteName, string siteUrl, int pagination, string copyright = "Copyright © 2025")
     {
         SiteConfig config;
         config.contentPath = contentPath;

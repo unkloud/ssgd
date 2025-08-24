@@ -20,16 +20,30 @@ string getDefaultTemplate(string templateName)
 {
     switch (templateName)
     {
-        case "base.html":
-            return "<!DOCTYPE html>\n<html><head><title>{{title}}</title></head><body>{{content}}</body></html>";
-        case "index.html":
-            return "{{posts}}{{pagination}}";
-        case "post.html":
-            return "<h1>{{title}}</h1><div>{{content}}</div>";
-        case "page.html":
-            return "<h1>{{title}}</h1><div>{{content}}</div>";
-        default:
-            return "<div>Template not found</div>";
+    case "base.html":
+        return "<!DOCTYPE html>\n" ~
+            "<html lang=\"en\">\n" ~
+            "<head>\n" ~
+            "  <meta charset=\"utf-8\">\n" ~
+            "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" ~
+            "  <title>{{siteName}}</title>\n" ~
+            "  <link rel=\"stylesheet\" href=\"/style.css\">\n" ~
+            "</head>\n" ~
+            "<body>\n" ~
+            "  <header><h1><a href=\"{{siteUrl}}\">{{siteName}}</a></h1></header>\n" ~
+            "  <main>{{content}}</main>\n" ~
+            "  <footer><small>{{copyright}}</small></footer>\n" ~
+            "</body>\n" ~
+            "</html>";
+    case "index.html":
+        // Fragment inserted into base via {{content}}
+        return "<section class=\"posts\">{{posts}}</section>\n{{pagination}}";
+    case "post.html":
+        return "<article class=\"post\"><h1>{{title}}</h1><div class=\"content\">{{content}}</div></article>";
+    case "page.html":
+        return "<article class=\"page\"><h1>{{title}}</h1><div class=\"content\">{{content}}</div></article>";
+    default:
+        return "<div>Template not found</div>";
     }
 }
 

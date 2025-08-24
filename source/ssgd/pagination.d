@@ -64,7 +64,7 @@ struct Pagination
     {
         if (!hasMultiplePages())
             return "";
-        
+
         string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "pagination.html");
         if (!exists(templatePath))
         {
@@ -72,14 +72,16 @@ struct Pagination
             string html = "<nav class=\"pagination\">\n";
             if (currentPage > 1)
             {
-                string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(currentPage - 1) ~ ".html";
+                string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(
+                    currentPage - 1) ~ ".html";
                 html ~= "  <a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>\n";
             }
             for (int p = 1; p <= totalPages; p++)
             {
                 string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
                 string activeClass = p == currentPage ? " class=\"active\"" : "";
-                html ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(p) ~ "</a>\n";
+                html ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(
+                    p) ~ "</a>\n";
             }
             if (currentPage < totalPages)
             {
@@ -89,34 +91,36 @@ struct Pagination
             html ~= "</nav>\n";
             return html;
         }
-        
+
         string prevLink = "";
         if (currentPage > 1)
         {
-            string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(currentPage - 1) ~ ".html";
+            string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(
+                currentPage - 1) ~ ".html";
             prevLink = "<a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>";
         }
-        
+
         string pageLinks = "";
         for (int p = 1; p <= totalPages; p++)
         {
             string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
             string activeClass = p == currentPage ? " class=\"active\"" : "";
-            pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(p) ~ "</a>\n";
+            pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(
+                p) ~ "</a>\n";
         }
-        
+
         string nextLink = "";
         if (currentPage < totalPages)
         {
             string nextUrl = "page" ~ to!string(currentPage + 1) ~ ".html";
             nextLink = "<a href=\"" ~ nextUrl ~ "\" class=\"next\">Next &raquo;</a>";
         }
-        
+
         string templateContent = readText(templatePath);
         templateContent = templateContent.replace("{{prevLink}}", prevLink);
         templateContent = templateContent.replace("{{pageLinks}}", pageLinks);
         templateContent = templateContent.replace("{{nextLink}}", nextLink);
-        
+
         return templateContent;
     }
 
