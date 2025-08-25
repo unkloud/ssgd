@@ -4,19 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Update dependencies in `dub.selections.json` and refine workspace configuration.">
+    <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Enhance template handling, improve pagination logic, refine workspace configuration, and update documentation.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/build.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/build.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/config.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/config.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/content.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/content.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/content_test.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/content_test.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/generator.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/generator.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/pagination.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/pagination.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/pagination_test.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/pagination_test.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/styles.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/styles.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/templates.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/templates.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/default_stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pagination.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post_item.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +23,11 @@
     <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -54,7 +55,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "major-refactoring",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ew/projects/unkloud/ssgd",
@@ -62,10 +63,10 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
-    "project.structure.last.edited": "Modules",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.2421875",
     "project.structure.side.proportion": "0.25290322",
-    "settings.editor.selected.configurable": "junie.application.models",
+    "settings.editor.selected.configurable": "configurable.group.appearance",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -83,6 +84,9 @@
         <option name="nim.task.build.to.cache" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -109,7 +113,6 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add pagination support with CLI option and enhance index rendering logic" />
     <MESSAGE value="Remove all site content, templates, and workspace configurations" />
     <MESSAGE value="Update workspace configuration comments to reflect recent changes to site content and templates" />
     <MESSAGE value="Update `.gitignore` to exclude `/site` and adjust workspace configuration comments" />
@@ -134,7 +137,8 @@
     <MESSAGE value="Convert post excerpts to HTML using Markdown for better content rendering." />
     <MESSAGE value="Refactor content handling: remove unused excerpt logic, enhance static file copying, and improve pagination and template generation." />
     <MESSAGE value="Update dependencies in `dub.selections.json` and refine workspace configuration." />
-    <option name="LAST_COMMIT_MESSAGE" value="Update dependencies in `dub.selections.json` and refine workspace configuration." />
+    <MESSAGE value="Enhance template handling, improve pagination logic, refine workspace configuration, and update documentation." />
+    <option name="LAST_COMMIT_MESSAGE" value="Enhance template handling, improve pagination logic, refine workspace configuration, and update documentation." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

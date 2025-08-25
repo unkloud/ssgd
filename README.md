@@ -208,11 +208,18 @@ Templates use `{{variable}}` syntax for placeholders:
 - `{{posts}}` - List of recent posts (HTML)
 
 ## Templates and Stylesheet Resolution
-- The default stylesheet is loaded from the `templates` directory located next to the executable (resolved via the executable's directory).
-- Ensure a `templates/default_stylesheet.css` file exists alongside the built `ssgd` binary.
-- If this file is missing, SSGD will throw an error; no fallback stylesheet is generated.
-- When running from the project root, this is satisfied by the repository's `./templates/default_stylesheet.css`.
-- When distributing the binary, ship the `templates/` directory alongside the executable.
+- The default templates link to Chota (https://jenil.github.io/chota/) via unpkg for base styles.
+- SSGD now generates an empty stylesheet at `site/static/style.css` during `ssgd init` for optional custom overrides.
+- There is no bundled/custom default CSS anymore and no inline styles are injected by SSGD.
+- You do NOT need to ship any `templates/default_stylesheet.css` next to the executable; that mechanism was removed.
+- Important: Rendering no longer falls back to built-in/default template strings. All required template files must exist, otherwise SSGD will throw an error. Required templates:
+  - Theme templates under your theme path (default: `site/templates/`): `base.html`, `index.html`, `post.html`, `page.html`, `post_item.html`, `pagination.html`.
+  - All templates are now generated in the same location (`site/templates/`) for consistency. If any template files are missing, rendering will fail with a template-not-found error.
+
+### Customizing Styles
+- Add your own CSS rules to `site/static/style.css` if you want to override Chota defaults.
+- Keep your overrides minimal to preserve Chota’s small, clean look.
+- If you replace the default templates under `site/templates/`, keep the `{{content}}` placeholder in `base.html` and ensure your layout includes the Chota CDN link and `/style.css`.
 
 ## Source Code Structure
 

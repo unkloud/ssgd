@@ -27,27 +27,5 @@ struct SiteConfig
         return SiteConfig();
     }
 
-    // Method to create configuration from command line arguments
-    static SiteConfig fromBuildArgs(string contentPath, string outputPath, string themePath,
-        string siteName, string siteUrl, int pagination, string copyright = "Copyright © 2025")
-    {
-        SiteConfig config;
-        config.contentPath = contentPath;
-        config.outputPath = outputPath;
-        config.themePath = themePath;
-        config.siteName = siteName;
-        config.siteUrl = siteUrl;
-        config.pagination = pagination;
-        config.copyright = copyright;
-        return config;
-    }
 
-    // Method to create configuration for serving
-    static SiteConfig fromServeArgs(string outputPath, string serverPort)
-    {
-        SiteConfig config;
-        config.outputPath = outputPath;
-        config.serverPort = serverPort;
-        return config;
-    }
 }

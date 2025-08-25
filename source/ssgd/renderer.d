@@ -7,8 +7,6 @@ import std.algorithm;
 import std.string;
 import std.conv;
 import std.datetime.date;
-import std.regex;
-import std.stdio;
 import commonmarkd;
 import ssgd.content;
 import ssgd.pagination;
@@ -48,22 +46,6 @@ class Renderer
         return replaceTemplateVariables(templateContent, vars);
     }
 
-    private string applyBase(string innerHtml, string[string] vars)
-    {
-        // If a base.html exists in the theme, wrap the innerHtml into it using {{content}}
-        string basePath = buildPath(themePath, "templates", "base.html");
-        if (!exists(basePath))
-            return innerHtml;
-        string baseTpl = readText(basePath);
-        // Ensure global vars are available in base too
-        auto allVars = vars.dup;
-        allVars["siteName"] = siteName;
-        allVars["siteUrl"] = siteUrl;
-        allVars["copyright"] = copyright;
-        string wrapped = replaceTemplateVariables(baseTpl, allVars);
-        wrapped = wrapped.replace("{{content}}", innerHtml);
-        return wrapped;
-    }
 
     private string replaceTemplateVariables(string content, string[string] vars)
     {
@@ -89,7 +71,6 @@ class Renderer
         try
         {
             string html = renderTemplate(templatePath, vars);
-            html = applyBase(html, vars);
             string outputFile = buildPath(outputPath, content.url[1 .. $]);
             std.file.write(outputFile, html);
         }
@@ -133,40 +114,20 @@ class Renderer
 
     private string renderPostItem(Content post)
     {
-        string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "post_item.html");
-        if (!exists(templatePath))
-        {
-            // Fallback to simple HTML if template not found
-            string html = "<div class=\"post-item\">\n";
-            html ~= "  <h3 class=\"post-title\"><a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a></h3>\n";
-            html ~= "  <div class=\"post-meta\">\n";
-            html ~= "    <span>📅 " ~ formatDate(post.date) ~ "</span>\n";
-            if (post.author && !post.author.empty)
-            {
-                html ~= "    <span>✍️ " ~ post.author ~ "</span>\n";
-            }
-            html ~= "  </div>\n";
-            string excerpt = post.getExcerpt();
-            if (!excerpt.empty)
-            {
-                string htmlExcerpt = convertMarkdownToHTML(excerpt);
-                html ~= "  <div class=\"post-excerpt\">" ~ htmlExcerpt ~ "</div>\n";
-            }
-            html ~= "  <a href=\"" ~ post.url ~ "\" class=\"read-more\">Read more →</a>\n";
-            html ~= "</div>\n";
-            return html;
-        }
+        string templatePath = buildPath(themePath, "templates", "post_item.html");
 
         string[string] vars;
         vars["url"] = post.url;
         vars["title"] = post.title ? post.title : "Untitled";
         vars["date"] = formatDate(post.date);
-        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>"
-            : "";
+        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>" : "";
         string excerpt = post.getExcerpt();
-        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(
-            excerpt) ~ "</div>" : "";
+        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
 
+        if (!exists(templatePath))
+        {
+            throw new Exception("Template not found: " ~ templatePath);
+        }
         string templateContent = readText(templatePath);
         return replaceTemplateVariables(templateContent, vars);
     }
@@ -195,9 +156,8 @@ class Renderer
                 postsHtml ~= renderPostItem(post);
             }
             vars["posts"] = postsHtml;
-            vars["pagination"] = pagination.generateHtml();
+            vars["pagination"] = pagination.generateHtml(themePath);
             string html = renderTemplate(templatePath, vars);
-            html = applyBase(html, vars);
             string outputFile = buildPath(outputPath, pagination.getPageFilename());
             std.file.write(outputFile, html);
         }
