@@ -7,8 +7,6 @@ import std.algorithm;
 import std.string;
 import std.conv;
 import std.datetime.date;
-import std.regex;
-import std.stdio;
 import commonmarkd;
 import ssgd.content;
 import ssgd.pagination;
@@ -50,10 +48,10 @@ class Renderer
 
     private string applyBase(string innerHtml, string[string] vars)
     {
-        // If a base.html exists in the theme, wrap the innerHtml into it using {{content}}
+        // Require a base.html in the theme; if missing, throw
         string basePath = buildPath(themePath, "templates", "base.html");
         if (!exists(basePath))
-            return innerHtml;
+            throw new Exception("Template not found: " ~ basePath);
         string baseTpl = readText(basePath);
         // Ensure global vars are available in base too
         auto allVars = vars.dup;
@@ -134,39 +132,19 @@ class Renderer
     private string renderPostItem(Content post)
     {
         string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "post_item.html");
-        if (!exists(templatePath))
-        {
-            // Fallback to simple HTML if template not found
-            string html = "<div class=\"post-item\">\n";
-            html ~= "  <h3 class=\"post-title\"><a href=\"" ~ post.url ~ "\">" ~ post.title ~ "</a></h3>\n";
-            html ~= "  <div class=\"post-meta\">\n";
-            html ~= "    <span>📅 " ~ formatDate(post.date) ~ "</span>\n";
-            if (post.author && !post.author.empty)
-            {
-                html ~= "    <span>✍️ " ~ post.author ~ "</span>\n";
-            }
-            html ~= "  </div>\n";
-            string excerpt = post.getExcerpt();
-            if (!excerpt.empty)
-            {
-                string htmlExcerpt = convertMarkdownToHTML(excerpt);
-                html ~= "  <div class=\"post-excerpt\">" ~ htmlExcerpt ~ "</div>\n";
-            }
-            html ~= "  <a href=\"" ~ post.url ~ "\" class=\"read-more\">Read more →</a>\n";
-            html ~= "</div>\n";
-            return html;
-        }
 
         string[string] vars;
         vars["url"] = post.url;
         vars["title"] = post.title ? post.title : "Untitled";
         vars["date"] = formatDate(post.date);
-        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>"
-            : "";
+        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>" : "";
         string excerpt = post.getExcerpt();
-        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(
-            excerpt) ~ "</div>" : "";
+        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
 
+        if (!exists(templatePath))
+        {
+            throw new Exception("Template not found: " ~ templatePath);
+        }
         string templateContent = readText(templatePath);
         return replaceTemplateVariables(templateContent, vars);
     }

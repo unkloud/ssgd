@@ -1,9 +1,8 @@
-<div class="post-item">
-  <h3 class="post-title"><a href="{{url}}">{{title}}</a></h3>
-  <div class="post-meta">
-    <span>📅 {{date}}</span>
-    {{authorSpan}}
+<article class="card post-item">
+  <header><h3 class="post-title"><a href="{{url}}">{{title}}</a></h3></header>
+  <div class="card-body">
+    <p class="post-meta"><small>📅 {{date}} {{authorSpan}}</small></p>
+    {{excerptDiv}}
+    <a href="{{url}}" class="button primary is-small">Read more →</a>
   </div>
-  {{excerptDiv}}
-  <a href="{{url}}" class="read-more">Read more →</a>
-</div>
+</article>

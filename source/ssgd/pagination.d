@@ -4,7 +4,6 @@ import std.conv;
 import std.string;
 import std.file;
 import std.path;
-import ssgd.content;
 
 struct Pagination
 {
@@ -26,20 +25,20 @@ struct Pagination
         this.totalItems = total;
         this.totalPages = (total + itemsPerPage - 1) / itemsPerPage;
         if (totalPages == 0)
-            totalPages = 1;
+        totalPages = 1;
     }
 
     void setCurrentPage(int page)
     {
         // Clamp within valid range to avoid out-of-bounds when slicing posts
         if (totalPages < 1)
-            totalPages = 1;
+        totalPages = 1;
         if (page < 1)
-            this.currentPage = 1;
+        this.currentPage = 1;
         else if (page > totalPages)
-            this.currentPage = totalPages;
+        this.currentPage = totalPages;
         else
-            this.currentPage = page;
+        this.currentPage = page;
     }
 
     int getStartIndex() const
@@ -51,7 +50,7 @@ struct Pagination
     {
         int endIndex = getStartIndex() + itemsPerPage;
         if (endIndex > totalItems)
-            endIndex = totalItems;
+        endIndex = totalItems;
         return endIndex;
     }
 
@@ -66,57 +65,35 @@ struct Pagination
             return "";
 
         string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "pagination.html");
+
         if (!exists(templatePath))
         {
-            // Fallback to original string concatenation if template not found
-            string html = "<nav class=\"pagination\">\n";
-            if (currentPage > 1)
-            {
-                string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(
-                    currentPage - 1) ~ ".html";
-                html ~= "  <a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>\n";
-            }
-            for (int p = 1; p <= totalPages; p++)
-            {
-                string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
-                string activeClass = p == currentPage ? " class=\"active\"" : "";
-                html ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(
-                    p) ~ "</a>\n";
-            }
-            if (currentPage < totalPages)
-            {
-                string nextUrl = "page" ~ to!string(currentPage + 1) ~ ".html";
-                html ~= "  <a href=\"" ~ nextUrl ~ "\" class=\"next\">Next &raquo;</a>\n";
-            }
-            html ~= "</nav>\n";
-            return html;
+            throw new Exception("Template not found: " ~ templatePath);
         }
+        string templateContent = readText(templatePath);
 
         string prevLink = "";
         if (currentPage > 1)
         {
-            string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(
-                currentPage - 1) ~ ".html";
-            prevLink = "<a href=\"" ~ prevUrl ~ "\" class=\"prev\">&laquo; Previous</a>";
+            string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(currentPage - 1) ~ ".html";
+            prevLink = "<a href=\"" ~ prevUrl ~ "\" class=\"button prev\">&laquo; Previous</a>";
         }
 
         string pageLinks = "";
         for (int p = 1; p <= totalPages; p++)
         {
             string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
-            string activeClass = p == currentPage ? " class=\"active\"" : "";
-            pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\"" ~ activeClass ~ ">" ~ to!string(
-                p) ~ "</a>\n";
+            string cls = (p == currentPage) ? "button primary" : "button outline";
+            pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\" class=\"" ~ cls ~ "\">" ~ to!string(p) ~ "</a>\n";
         }
 
         string nextLink = "";
         if (currentPage < totalPages)
         {
             string nextUrl = "page" ~ to!string(currentPage + 1) ~ ".html";
-            nextLink = "<a href=\"" ~ nextUrl ~ "\" class=\"next\">Next &raquo;</a>";
+            nextLink = "<a href=\"" ~ nextUrl ~ "\" class=\"button next\">Next &raquo;</a>";
         }
 
-        string templateContent = readText(templatePath);
         templateContent = templateContent.replace("{{prevLink}}", prevLink);
         templateContent = templateContent.replace("{{pageLinks}}", pageLinks);
         templateContent = templateContent.replace("{{nextLink}}", nextLink);

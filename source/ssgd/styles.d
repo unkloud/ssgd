@@ -1,32 +1,15 @@
 module ssgd.styles;
 
-import std.file; // thisExePath, readText, exists
-import std.path; // dirName, buildPath
-import std.string; // replace
+import std.file; // write, exists
+import std.path; // buildPath
 
-// Get default stylesheet as an inline <style> block from the executable's templates directory.
-string getDefaultStylesheet()
-{
-    auto css = getDefaultCSS();
-    return "  <style>\n    " ~ css.replace("\n", "\n    ") ~ "\n  </style>\n";
-}
-
-// Get default CSS content from the executable's templates directory.
-// Throws if the template file is missing.
+// Return empty default CSS (customization placeholder)
 string getDefaultCSS()
 {
-    auto exeDir = thisExePath.dirName;
-    string templatePath = buildPath(exeDir, "templates", "default_stylesheet.css");
-    if (exists(templatePath))
-    {
-        return readText(templatePath);
-    }
-    throw new Exception("Default stylesheet template not found: " ~ templatePath ~
-    ". Ensure 'templates/default_stylesheet.css' exists next to the executable.");
+    return ""; // intentionally empty; users can add overrides in site/static/style.css
 }
 
-// Generate default stylesheet file into the site's static directory, using the template.
-// Will throw if the template file does not exist.
+// Generate empty stylesheet file into the site's static directory.
 void generateDefaultStylesheet(string path)
 {
     string staticDir = buildPath(path, "site", "static");
