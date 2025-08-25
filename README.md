@@ -213,8 +213,8 @@ Templates use `{{variable}}` syntax for placeholders:
 - There is no bundled/custom default CSS anymore and no inline styles are injected by SSGD.
 - You do NOT need to ship any `templates/default_stylesheet.css` next to the executable; that mechanism was removed.
 - Important: Rendering no longer falls back to built-in/default template strings. All required template files must exist, otherwise SSGD will throw an error. Required templates:
-  - Theme templates under your theme path (default: `site/templates/`): `base.html`, `index.html`, `post.html`, `page.html`.
-  - Internal partials shipped with SSGD: `templates/post_item.html`, `templates/pagination.html` (bundled in the distribution). If these files are missing from the distribution, rendering the index and pagination will fail with a template-not-found error.
+  - Theme templates under your theme path (default: `site/templates/`): `base.html`, `index.html`, `post.html`, `page.html`, `post_item.html`, `pagination.html`.
+  - All templates are now generated in the same location (`site/templates/`) for consistency. If any template files are missing, rendering will fail with a template-not-found error.
 
 ### Customizing Styles
 - Add your own CSS rules to `site/static/style.css` if you want to override Chota defaults.

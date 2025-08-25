@@ -46,22 +46,6 @@ class Renderer
         return replaceTemplateVariables(templateContent, vars);
     }
 
-    private string applyBase(string innerHtml, string[string] vars)
-    {
-        // Require a base.html in the theme; if missing, throw
-        string basePath = buildPath(themePath, "templates", "base.html");
-        if (!exists(basePath))
-            throw new Exception("Template not found: " ~ basePath);
-        string baseTpl = readText(basePath);
-        // Ensure global vars are available in base too
-        auto allVars = vars.dup;
-        allVars["siteName"] = siteName;
-        allVars["siteUrl"] = siteUrl;
-        allVars["copyright"] = copyright;
-        string wrapped = replaceTemplateVariables(baseTpl, allVars);
-        wrapped = wrapped.replace("{{content}}", innerHtml);
-        return wrapped;
-    }
 
     private string replaceTemplateVariables(string content, string[string] vars)
     {
@@ -87,7 +71,6 @@ class Renderer
         try
         {
             string html = renderTemplate(templatePath, vars);
-            html = applyBase(html, vars);
             string outputFile = buildPath(outputPath, content.url[1 .. $]);
             std.file.write(outputFile, html);
         }
@@ -131,7 +114,7 @@ class Renderer
 
     private string renderPostItem(Content post)
     {
-        string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "post_item.html");
+        string templatePath = buildPath(themePath, "templates", "post_item.html");
 
         string[string] vars;
         vars["url"] = post.url;
@@ -173,9 +156,8 @@ class Renderer
                 postsHtml ~= renderPostItem(post);
             }
             vars["posts"] = postsHtml;
-            vars["pagination"] = pagination.generateHtml();
+            vars["pagination"] = pagination.generateHtml(themePath);
             string html = renderTemplate(templatePath, vars);
-            html = applyBase(html, vars);
             string outputFile = buildPath(outputPath, pagination.getPageFilename());
             std.file.write(outputFile, html);
         }

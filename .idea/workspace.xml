@@ -7,18 +7,12 @@
     <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Enhance template handling, improve pagination logic, refine workspace configuration, and update documentation.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dub.selections.json" beforeDir="false" afterPath="$PROJECT_DIR$/dub.selections.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/build.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/build.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/config.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/config.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/content.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/content.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/defaults.d" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/pagination.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/pagination.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/styles.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/styles.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/templates.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/templates.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/default_stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/templates/default_stylesheet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pagination.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pagination.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post_item.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/post_item.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/default_stylesheet.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pagination.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/post_item.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +23,11 @@
     <option name="myRunOnSave" value="true" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -56,7 +55,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "major-refactoring",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ew/projects/unkloud/ssgd",

@@ -59,12 +59,12 @@ struct Pagination
         return totalPages > 1;
     }
 
-    string generateHtml() const
+    string generateHtml(string themePath) const
     {
         if (!hasMultiplePages())
             return "";
 
-        string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "templates", "pagination.html");
+        string templatePath = buildPath(themePath, "templates", "pagination.html");
 
         if (!exists(templatePath))
         {
