@@ -1,4 +1,5 @@
 module ssgd.build;
+
 import std.stdio;
 import std.getopt;
 import std.conv;

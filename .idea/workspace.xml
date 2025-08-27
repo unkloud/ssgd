@@ -6,13 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2760f802-77bf-46fa-ba3f-5ada35fb9f30" name="Changes" comment="Enhance template handling, improve pagination logic, refine workspace configuration, and update documentation.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/pagination.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/pagination.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/source/ssgd/renderer.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/renderer.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/build.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/build.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/cli.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/cli.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/config.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/config.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/source/ssgd/content.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/content.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/source/ssgd/templates.d" beforeDir="false" afterPath="$PROJECT_DIR$/source/ssgd/templates.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/default_stylesheet.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pagination.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/post_item.html" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,11 +49,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Build with DUB.Dub.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "major-refactoring",
+    "git-widget-placeholder": "main",
     "junie.onboarding.icon.badge.shown": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/ew/projects/unkloud/ssgd",
@@ -66,7 +66,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.2421875",
     "project.structure.side.proportion": "0.25290322",
-    "settings.editor.selected.configurable": "configurable.group.appearance",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -84,6 +84,43 @@
         <option name="nim.task.build.to.cache" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Dub" type="DlangRunDubConfigType" factoryName="DlangRunDubConfigType" temporary="true" show_console_on_std_err="false" show_console_on_std_out="false">
+      <module name="ssgd" />
+      <option name="additionalParams" />
+      <option name="allowRunningInParallel" value="false" />
+      <option name="buildMode" value="0" />
+      <option name="cbCombined" value="false" />
+      <option name="cbCoverage" value="false" />
+      <option name="cbForce" value="false" />
+      <option name="cbForceRemove" value="false" />
+      <option name="cbNoDeps" value="false" />
+      <option name="cbParallel" value="false" />
+      <option name="cbRdmd" value="false" />
+      <option name="cbTempBuild" value="false" />
+      <option name="envVars">
+        <map />
+      </option>
+      <option name="generalDubOptions" value="1" />
+      <option name="projectPathOnTarget" />
+      <option name="quiet" value="false" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="tfArch" />
+      <option name="tfBuild" />
+      <option name="tfCompiler" />
+      <option name="tfConfig" />
+      <option name="tfDebug" />
+      <option name="tfMainFile" />
+      <option name="verbose" value="false" />
+      <option name="workingDir" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Build with DUB.Dub" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />

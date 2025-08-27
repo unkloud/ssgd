@@ -60,25 +60,25 @@ class Content
     {
         auto parts = line.findSplit(":");
         if (parts[1].empty)
-            return;
+        return;
         auto key = parts[0].strip().toLower();
         auto value = parts[2].strip();
         switch (key)
         {
-        case "title":
-            title = value;
-            break;
-        case "author":
-            author = value;
-            break;
-        case "slug":
-            setSlug(value);
-            break;
-        case "date":
-            parseDate(value);
-            break;
-        default:
-            break;
+            case "title":
+                title = value;
+                break;
+            case "author":
+                author = value;
+                break;
+            case "slug":
+                setSlug(value);
+                break;
+            case "date":
+                parseDate(value);
+                break;
+                default:
+                break;
         }
     }
 
@@ -119,7 +119,7 @@ class Content
     string getExcerpt()
     {
         if (content.empty)
-            return "";
+        return "";
 
         auto paragraphs = content.split("\n\n");
         string excerpt = "";
@@ -131,11 +131,11 @@ class Content
             if (!trimmed.empty && !trimmed.startsWith("#"))
             {
                 if (paragraphCount > 0)
-                    excerpt ~= "\n\n";
+                excerpt ~= "\n\n";
                 excerpt ~= trimmed;
                 paragraphCount++;
                 if (paragraphCount >= 2)
-                    break;
+                break;
             }
         }
 

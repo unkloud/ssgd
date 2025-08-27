@@ -20,22 +20,22 @@ class CLI
         string[] commandArgs = args[2 .. $];
         switch (command)
         {
-        case "init":
-            return initCommand(commandArgs);
-        case "build":
-            return buildCommand(commandArgs);
-        case "serve":
-            return serveCommand(commandArgs);
-        case "help":
-            printUsage();
-            return 0;
-        case "version":
-            writeln("SSGD version " ~ VERSION);
-            return 0;
-        default:
-            writeln("Unknown command: ", command);
-            printUsage();
-            return 1;
+            case "init":
+                return initCommand(commandArgs);
+            case "build":
+                return buildCommand(commandArgs);
+            case "serve":
+                return serveCommand(commandArgs);
+            case "help":
+                printUsage();
+                return 0;
+            case "version":
+                writeln("SSGD version " ~ VERSION);
+                return 0;
+                default:
+                writeln("Unknown command: ", command);
+                printUsage();
+                return 1;
         }
     }
 
