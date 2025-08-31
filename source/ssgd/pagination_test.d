@@ -25,7 +25,7 @@ Content[] createTestPosts(int count)
         post.slug = "test-post-" ~ to!string(i);
         post.date = Date(2025, 1, i <= 31 ? i : 31);
         post.content = "This is test content for post " ~ to!string(
-            i) ~ ".\n\nSecond paragraph of post " ~ to!string(i) ~ ".";
+                i) ~ ".\n\nSecond paragraph of post " ~ to!string(i) ~ ".";
         post.url = "/posts/test-post-" ~ to!string(i) ~ ".html";
         posts ~= post;
     }
@@ -69,7 +69,8 @@ unittest
     string templateContent = "{{posts}}{{pagination}}";
     std.file.write(buildPath(templateDir, "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/", "Test Copyright", Pagination(5));
+    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+            "Test Copyright", Pagination(5));
     renderer.renderIndex(collection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist even with 0 posts");
@@ -95,7 +96,8 @@ unittest
     string templateContent = "{{posts}}{{pagination}}";
     std.file.write(buildPath(templateDir, "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/", "Test Copyright", Pagination(5));
+    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+            "Test Copyright", Pagination(5));
     renderer.renderIndex(collection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist");
@@ -122,7 +124,8 @@ unittest
     string templateContent = "{{posts}}{{pagination}}";
     std.file.write(buildPath(templateDir, "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/", "Test Copyright", Pagination(5));
+    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+            "Test Copyright", Pagination(5));
     renderer.renderIndex(collection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist");
@@ -151,7 +154,8 @@ unittest
     string templateContent = "POSTS:{{posts}}PAGINATION:{{pagination}}";
     std.file.write(buildPath(templateDir, "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/", "Test Copyright", Pagination(3));
+    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+            "Test Copyright", Pagination(3));
     renderer.renderIndex(collection);
 
     // Check page 1 (index.html)
@@ -201,14 +205,18 @@ unittest
     string templateContent = "{{pagination}}";
     std.file.write(buildPath(templateDir, "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/", "Test Copyright", Pagination(3));
+    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+            "Test Copyright", Pagination(3));
     renderer.renderIndex(collection);
 
     // Check page 2 for correct URL generation
     string page2Content = readText(buildPath(testDir, "page2.html"));
-    assert(page2Content.canFind("href=\"index.html\""), "Page 2 should link to index.html for page 1");
-    assert(page2Content.canFind("href=\"page3.html\""), "Page 2 should link to page3.html for page 3");
-    assert(page2Content.canFind("class=\"active\""), "Page 2 should have active class on current page");
+    assert(page2Content.canFind("href=\"index.html\""),
+            "Page 2 should link to index.html for page 1");
+    assert(page2Content.canFind("href=\"page3.html\""),
+            "Page 2 should link to page3.html for page 3");
+    assert(page2Content.canFind("class=\"active\""),
+            "Page 2 should have active class on current page");
 
     writeln("[DEBUG_LOG] Pagination URL generation test: PASSED");
 }
@@ -252,8 +260,8 @@ unittest
     string templateContent = "{{posts}}";
     std.file.write(buildPath(templateDir, "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/", "Test Copyright", Pagination(
-            10));
+    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+            "Test Copyright", Pagination(10));
     renderer.renderIndex(collection);
 
     string indexContent = readText(buildPath(testDir, "index.html"));

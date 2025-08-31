@@ -25,20 +25,20 @@ struct Pagination
         this.totalItems = total;
         this.totalPages = (total + itemsPerPage - 1) / itemsPerPage;
         if (totalPages == 0)
-        totalPages = 1;
+            totalPages = 1;
     }
 
     void setCurrentPage(int page)
     {
         // Clamp within valid range to avoid out-of-bounds when slicing posts
         if (totalPages < 1)
-        totalPages = 1;
+            totalPages = 1;
         if (page < 1)
-        this.currentPage = 1;
+            this.currentPage = 1;
         else if (page > totalPages)
-        this.currentPage = totalPages;
+            this.currentPage = totalPages;
         else
-        this.currentPage = page;
+            this.currentPage = page;
     }
 
     int getStartIndex() const
@@ -50,7 +50,7 @@ struct Pagination
     {
         int endIndex = getStartIndex() + itemsPerPage;
         if (endIndex > totalItems)
-        endIndex = totalItems;
+            endIndex = totalItems;
         return endIndex;
     }
 
@@ -75,7 +75,8 @@ struct Pagination
         string prevLink = "";
         if (currentPage > 1)
         {
-            string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(currentPage - 1) ~ ".html";
+            string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(
+                    currentPage - 1) ~ ".html";
             prevLink = "<a href=\"" ~ prevUrl ~ "\" class=\"button prev\">&laquo; Previous</a>";
         }
 
@@ -84,7 +85,8 @@ struct Pagination
         {
             string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
             string cls = (p == currentPage) ? "button primary" : "button outline";
-            pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\" class=\"" ~ cls ~ "\">" ~ to!string(p) ~ "</a>\n";
+            pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\" class=\"" ~ cls ~ "\">" ~ to!string(
+                    p) ~ "</a>\n";
         }
 
         string nextLink = "";

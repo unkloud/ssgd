@@ -44,7 +44,7 @@ unittest
     assert(content.slug == "test-post", "Slug parsing failed");
     assert(content.date == Date(2025, 1, 15), "Date parsing failed");
     assert(content.content == "# Test Content\n\nThis is test content.",
-        "Content extraction failed");
+            "Content extraction failed");
     assert(content.url == "/posts/test-post.html", "URL generation failed");
     writeln("[DEBUG_LOG] Basic content parsing test: PASSED");
 }

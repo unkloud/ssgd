@@ -6,7 +6,8 @@ import std.path;
 // Function to get template content from file
 string getTemplateContent(string templateName)
 {
-    string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "site", "templates", templateName);
+    string templatePath = buildPath(__FILE__.dirName, "..", "..", "..", "site",
+            "templates", templateName);
     if (exists(templatePath))
     {
         return readText(templatePath);
@@ -20,8 +21,8 @@ string getDefaultTemplate(string templateName)
 {
     switch (templateName)
     {
-        case "base.html":
-            return `<!DOCTYPE html>
+    case "base.html":
+        return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -46,8 +47,8 @@ string getDefaultTemplate(string templateName)
   </footer>
 </body>
 </html>`;
-        case "index.html":
-            return `<!DOCTYPE html>
+    case "index.html":
+        return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -75,8 +76,8 @@ string getDefaultTemplate(string templateName)
   </footer>
 </body>
 </html>`;
-        case "post.html":
-            return `<!DOCTYPE html>
+    case "post.html":
+        return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -104,8 +105,8 @@ string getDefaultTemplate(string templateName)
   </footer>
 </body>
 </html>`;
-        case "page.html":
-            return `<!DOCTYPE html>
+    case "page.html":
+        return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -133,14 +134,14 @@ string getDefaultTemplate(string templateName)
   </footer>
 </body>
 </html>`;
-        case "pagination.html":
-            return `<nav class="pagination group">
+    case "pagination.html":
+        return `<nav class="pagination group">
   {{prevLink}}
   {{pageLinks}}
   {{nextLink}}
 </nav>`;
-        case "post_item.html":
-            return `<article class="card post-item">
+    case "post_item.html":
+        return `<article class="card post-item">
   <header><h3 class="post-title"><a href="{{url}}">{{title}}</a></h3></header>
   <div class="card-body">
     <p class="post-meta"><small>📅 {{date}} {{authorSpan}}</small></p>
@@ -148,8 +149,8 @@ string getDefaultTemplate(string templateName)
     <a href="{{url}}" class="button primary is-small">Read more →</a>
   </div>
 </article>`;
-            default:
-            return "<div>Template not found</div>";
+    default:
+        return "<div>Template not found</div>";
     }
 }
 

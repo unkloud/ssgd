@@ -20,9 +20,8 @@ class Renderer
     string copyright;
     Pagination pagination;
 
-    this(string themePath, string outputPath, string siteName = "SSGD Site",
-        string siteUrl = "/", string copyright = "Copyright © 2025", Pagination pagination = Pagination(
-            20))
+    this(string themePath, string outputPath, string siteName = "SSGD Site", string siteUrl = "/",
+            string copyright = "Copyright © 2025", Pagination pagination = Pagination(20))
     {
         this.themePath = themePath;
         this.outputPath = outputPath;
@@ -45,7 +44,6 @@ class Renderer
         string templateContent = readText(templatePath);
         return replaceTemplateVariables(templateContent, vars);
     }
-
 
     private string replaceTemplateVariables(string content, string[string] vars)
     {
@@ -120,9 +118,11 @@ class Renderer
         vars["url"] = post.url;
         vars["title"] = post.title ? post.title : "Untitled";
         vars["date"] = formatDate(post.date);
-        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ " ~ post.author ~ "</span>" : "";
+        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ "
+            ~ post.author ~ "</span>" : "";
         string excerpt = post.getExcerpt();
-        vars["excerptDiv"] = !excerpt.empty ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
+        vars["excerptDiv"] = !excerpt.empty
+            ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
 
         if (!exists(templatePath))
         {
