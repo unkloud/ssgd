@@ -14,8 +14,7 @@ struct SiteConfig
     // Build settings
     int pagination = 20;
     // Server settings
-    string serverPort = "8000";
-    ushort httpPort = 8080;
+    ushort httpPort = 8000;
     string[] bindAddresses = ["::1", "127.0.0.1"];
     // Static method to create default configuration
     static SiteConfig createDefault()

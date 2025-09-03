@@ -16,7 +16,7 @@ int serveSite(string[] args)
     try
     {
         string[] argsWithProgName = ["ssgd"] ~ args;
-        getopt(argsWithProgName, "port", &config.serverPort, "output", &config.outputPath);
+        getopt(argsWithProgName, "port", &config.httpPort, "output", &config.outputPath);
     }
     catch (Exception e)
     {
@@ -31,7 +31,7 @@ int serveSite(string[] args)
         return 1;
     }
 
-    writeln("Serving site from ", config.outputPath, " on http://localhost:", config.serverPort);
+    writeln("Serving site from ", config.outputPath, " on http://localhost:", config.httpPort);
     writeln("Press Ctrl+C to stop");
 
     auto settings = new HTTPServerSettings;
