@@ -56,7 +56,7 @@ class Renderer
         return result;
     }
 
-    void renderContent(Content content)
+    void render(Content content)
     {
         if (content is null)
         {
@@ -113,7 +113,6 @@ class Renderer
     private string renderPostItem(Content post)
     {
         string templatePath = buildPath(themePath, "templates", "post_item.html");
-
         string[string] vars;
         vars["url"] = post.url;
         vars["title"] = post.title ? post.title : "Untitled";
@@ -123,7 +122,6 @@ class Renderer
         string excerpt = post.getExcerpt();
         vars["excerptDiv"] = !excerpt.empty
             ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
-
         if (!exists(templatePath))
         {
             throw new Exception("Template not found: " ~ templatePath);
@@ -197,7 +195,7 @@ class Renderer
     {
         foreach (content; collection.items)
         {
-            renderContent(content);
+            render(content);
         }
         renderIndex(collection);
         copyStaticFiles();
