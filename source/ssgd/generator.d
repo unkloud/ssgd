@@ -12,7 +12,7 @@ import ssgd.config;
 
 void generateSite(SiteConfig config)
 {
-    auto collection = new ContentCollection();
+    auto collection = new PresentableContentCollection();
     auto markdownProcessor = new MarkdownProcessor();
     auto renderer = new HtmlRenderer(config.themePath, config.outputPath,
             config.siteName, config.siteUrl, config.copyright, Pagination(config.pagination));
@@ -26,7 +26,7 @@ void generateSite(SiteConfig config)
             try
             {
                 auto provider = new FileContentProvider(entry, "post");
-                auto content = new Content(provider);
+                auto content = new PresentableContent(provider);
                 collection.add(content);
                 writeln("Loaded post: ", content.title);
             }
@@ -44,7 +44,7 @@ void generateSite(SiteConfig config)
             try
             {
                 auto provider = new FileContentProvider(entry, "page");
-                auto content = new Content(provider);
+                auto content = new PresentableContent(provider);
                 collection.add(content);
                 writeln("Loaded page: ", content.title);
             }

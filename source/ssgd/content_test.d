@@ -12,7 +12,7 @@ unittest
     string testContent = "Title: Test Post\n" ~ "Author: Test Author\n" ~ "Date: 2025-01-15\n"
         ~ "Slug: test-post\n" ~ "\n" ~ "# Test Content\n" ~ "\n" ~ "This is test content.";
     auto provider = new StringContentProvider(testContent, "post", "test-post");
-    auto content = new Content(provider);
+    auto content = new PresentableContent(provider);
     assert(content.title == "Test Post", "Title parsing failed");
     assert(content.author == "Test Author", "Author parsing failed");
     assert(content.slug == "test-post", "Slug parsing failed");
@@ -27,7 +27,7 @@ unittest
 {
     string testContent = "Title: Minimal Post\nSlug: minimal\n" ~ "\n" ~ "Just content here.";
     auto provider = new StringContentProvider(testContent, "post", "minimal");
-    auto content = new Content(provider);
+    auto content = new PresentableContent(provider);
     assert(content.title == "Minimal Post", "Title parsing failed");
     assert(content.author == "", "Author should be empty");
     assert(content.slug == "minimal", "Default slug should be filename");
@@ -40,7 +40,7 @@ unittest
     string testContent = "Title: Invalid Date Post\n" ~ "Date: invalid-date\n"
         ~ "Slug: invalid_date\n" ~ "\n" ~ "Content with invalid date.";
     auto provider = new StringContentProvider(testContent, "post", "invalid_date");
-    auto content = new Content(provider);
+    auto content = new PresentableContent(provider);
     auto now = Clock.currTime();
     Date currentDate = Date(now.year, now.month, now.day);
     assert(content.date == currentDate, "Should use current date for invalid date");
@@ -51,7 +51,7 @@ unittest
 {
     string testContent = "Title: Test Page\n" ~ "Slug: test-page\n" ~ "\n" ~ "Page content.";
     auto provider = new StringContentProvider(testContent, "page", "test-page");
-    auto content = new Content(provider);
+    auto content = new PresentableContent(provider);
     assert(content.contentProvider.getSiteContentType() == "page", "Content type should be page");
     assert(content.relativeUrl() == "/test-page.html", "Page URL should not have posts/ prefix");
 }
@@ -63,7 +63,7 @@ unittest
     auto provider = new FileContentProvider(nonExistentFile, "post");
     try
     {
-        auto content = new Content(provider);
+        auto content = new PresentableContent(provider);
         assert(false, "Should throw exception for non-existent file");
     }
     catch (Exception e)
@@ -75,7 +75,7 @@ unittest
 // Test content collection functionality
 unittest
 {
-    auto collection = new ContentCollection();
+    auto collection = new PresentableContentCollection();
 
     auto provider1 = new StringContentProvider(
             "Title: Post 1\nSlug: post-1\n\nPost 1 content", "post", "post-1");
@@ -83,9 +83,9 @@ unittest
             "Title: Post 2\nSlug: post-2\n\nPost 2 content", "post", "post-2");
     auto provider3 = new StringContentProvider(
             "Title: Page 1\nSlug: page-1\n\nPage 1 content", "page", "page-1");
-    auto post1 = new Content(provider1);
-    auto post2 = new Content(provider2);
-    auto page1 = new Content(provider3);
+    auto post1 = new PresentableContent(provider1);
+    auto post2 = new PresentableContent(provider2);
+    auto page1 = new PresentableContent(provider3);
     collection.add(post1);
     collection.add(post2);
     collection.add(page1);

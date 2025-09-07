@@ -75,7 +75,7 @@ class StringContentProvider : ContentProvider
     }
 }
 
-class Content
+class PresentableContent
 {
     string title;
     string author;
@@ -206,31 +206,31 @@ class Content
     }
 }
 
-class ContentCollection
+class PresentableContentCollection
 {
-    Content[] items;
+    PresentableContent[] items;
 
-    void add(Content item)
+    void add(PresentableContent item)
     {
         items ~= item;
     }
 
-    Content[] getByType(string contentType)
+    PresentableContent[] getByType(string contentType)
     {
         return items.filter!(i => i.contentProvider.getSiteContentType() == contentType).array;
     }
 
-    Content[] getPosts()
+    PresentableContent[] getPosts()
     {
         return getByType("post");
     }
 
-    Content[] getPages()
+    PresentableContent[] getPages()
     {
         return getByType("page");
     }
 
-    Content getBySlug(string slug)
+    PresentableContent getBySlug(string slug)
     {
         auto results = items.filter!(i => i.slug == slug).array;
         return results.length > 0 ? results[0] : null;

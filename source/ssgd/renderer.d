@@ -12,10 +12,10 @@ import ssgd.content;
 
 struct RenderedContent
 {
-    Content content;
+    PresentableContent content;
     string renderedHtml;
 
-    this(Content content, string renderedHtml)
+    this(PresentableContent content, string renderedHtml)
     {
         this.content = content;
         this.renderedHtml = renderedHtml;
@@ -344,7 +344,7 @@ class HtmlRenderer
 
 class MarkdownProcessor
 {
-    string process(Content content)
+    string process(PresentableContent content)
     {
         string rendered = "";
         if (content.pageContent.length > 0)
@@ -354,7 +354,7 @@ class MarkdownProcessor
         return rendered;
     }
 
-    RenderedContentCollection processCollection(ContentCollection collection)
+    RenderedContentCollection processCollection(PresentableContentCollection collection)
     {
         auto renderedCollection = new RenderedContentCollection();
         foreach (content; collection.items)
