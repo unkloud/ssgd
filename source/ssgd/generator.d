@@ -16,8 +16,6 @@ void generateSite(SiteConfig config)
     auto markdownProcessor = new MarkdownProcessor();
     auto renderer = new HtmlRenderer(config.themePath, config.outputPath,
             config.siteName, config.siteUrl, config.copyright, Pagination(config.pagination));
-
-    writeln("Loading content...");
     string postsPath = buildPath(config.contentPath, "posts");
     if (exists(postsPath) && isDir(postsPath))
     {
@@ -28,7 +26,6 @@ void generateSite(SiteConfig config)
                 auto provider = new FileContentProvider(entry, "post");
                 auto content = new PresentableContent(provider);
                 collection.add(content);
-                writeln("Loaded post: ", content.title);
             }
             catch (Exception e)
             {
@@ -46,7 +43,6 @@ void generateSite(SiteConfig config)
                 auto provider = new FileContentProvider(entry, "page");
                 auto content = new PresentableContent(provider);
                 collection.add(content);
-                writeln("Loaded page: ", content.title);
             }
             catch (Exception e)
             {
@@ -54,10 +50,6 @@ void generateSite(SiteConfig config)
             }
         }
     }
-
-    writeln("Processing markdown...");
     auto renderedCollection = markdownProcessor.processCollection(collection);
-    writeln("Rendering site...");
     renderer.renderSite(renderedCollection);
-    writeln("Site generation complete!");
 }
