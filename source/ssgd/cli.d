@@ -27,22 +27,22 @@ class CLI
         string[] commandArgs = args[2 .. $];
         switch (command)
         {
-            case "init":
-                return initCommand(commandArgs);
-            case "build":
-                return buildCommand(commandArgs);
-            case "serve":
-                return serveCommand(commandArgs);
-            case "help":
-                printUsage();
-                return 0;
-            case "version":
-                writeln("SSGD version " ~ VERSION);
-                return 0;
-            default:
-                writeln("Unknown command: ", command);
-                printUsage();
-                return 1;
+        case "init":
+            return initCommand(commandArgs);
+        case "build":
+            return buildCommand(commandArgs);
+        case "serve":
+            return serveCommand(commandArgs);
+        case "help":
+            printUsage();
+            return 0;
+        case "version":
+            writeln("SSGD version " ~ VERSION);
+            return 0;
+        default:
+            writeln("Unknown command: ", command);
+            printUsage();
+            return 1;
         }
     }
 
@@ -97,8 +97,8 @@ int buildSite(string[] args)
         {
             string[] argsWithProgName = ["ssgd"] ~ args;
             getopt(argsWithProgName, "content", &config.contentPath, "output",
-                &config.outputPath, "theme", &config.themePath, "name", &config.siteName,
-                "url", &config.siteUrl, "pagination", &paginationStr);
+                    &config.outputPath, "theme", &config.themePath, "name", &config.siteName,
+                    "url", &config.siteUrl, "pagination", &paginationStr);
         }
     }
     catch (Exception e)
@@ -108,8 +108,7 @@ int buildSite(string[] args)
     }
     config.pagination = to!int(paginationStr);
     writeln("Building site from ", config.contentPath, " to ", config.outputPath);
-    auto generator = new SiteGenerator(config);
-    generator.generate();
+    generateSite(config);
     return 0;
 }
 

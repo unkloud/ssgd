@@ -82,7 +82,9 @@ unittest
 
     auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(5));
-    renderer.renderIndex(collection);
+    auto processor = new MarkdownProcessor();
+    auto renderedCollection = processor.processCollection(collection);
+    renderer.renderIndex(renderedCollection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist even with 0 posts");
 }
@@ -104,7 +106,9 @@ unittest
 
     auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(5));
-    renderer.renderIndex(collection);
+    auto processor = new MarkdownProcessor();
+    auto renderedCollection = processor.processCollection(collection);
+    renderer.renderIndex(renderedCollection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist");
     assert(!exists(buildPath(testDir, "page2.html")), "Page 2 should not exist with only 5 posts");
@@ -127,7 +131,9 @@ unittest
 
     auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(5));
-    renderer.renderIndex(collection);
+    auto processor = new MarkdownProcessor();
+    auto renderedCollection = processor.processCollection(collection);
+    renderer.renderIndex(renderedCollection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist");
     assert(exists(buildPath(testDir, "page2.html")), "Page 2 should exist");
@@ -155,7 +161,9 @@ unittest
 
     auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(3));
-    renderer.renderIndex(collection);
+    auto processor = new MarkdownProcessor();
+    auto renderedCollection = processor.processCollection(collection);
+    renderer.renderIndex(renderedCollection);
 
     // Check page 1 (index.html) - posts are sorted newest first
     string page1Content = readText(buildPath(testDir, "index.html"));
@@ -204,7 +212,9 @@ unittest
 
     auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(3));
-    renderer.renderIndex(collection);
+    auto processor = new MarkdownProcessor();
+    auto renderedCollection = processor.processCollection(collection);
+    renderer.renderIndex(renderedCollection);
 
     // Check page 2 for correct URL generation
     string page2Content = readText(buildPath(testDir, "page2.html"));
@@ -254,7 +264,9 @@ unittest
 
     auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(10));
-    renderer.renderIndex(collection);
+    auto processor = new MarkdownProcessor();
+    auto renderedCollection = processor.processCollection(collection);
+    renderer.renderIndex(renderedCollection);
 
     string indexContent = readText(buildPath(testDir, "index.html"));
 

@@ -10,6 +10,44 @@ import std.datetime.date;
 import commonmarkd;
 import ssgd.content;
 
+struct RenderedContent
+{
+    Content content;
+    string renderedHtml;
+
+    this(Content content, string renderedHtml)
+    {
+        this.content = content;
+        this.renderedHtml = renderedHtml;
+    }
+}
+
+class RenderedContentCollection
+{
+    RenderedContent[] items;
+
+    void add(RenderedContent item)
+    {
+        items ~= item;
+    }
+
+    RenderedContent[] getByType(string contentType)
+    {
+        return items.filter!(i => i.content.contentProvider.getSiteContentType() == contentType)
+            .array;
+    }
+
+    RenderedContent[] getPosts()
+    {
+        return getByType("post");
+    }
+
+    RenderedContent[] getPages()
+    {
+        return getByType("page");
+    }
+}
+
 struct Pagination
 {
     int itemsPerPage;
@@ -159,22 +197,24 @@ class HtmlRenderer
         return result;
     }
 
-    void render(Content content)
+    void render(RenderedContent renderedContent)
     {
-        assert(content !is null, "Cannot render null content");
-        string templateName = getTemplateName(content.contentProvider.getSiteContentType());
+        assert(renderedContent.content !is null, "Cannot render null content");
+        string templateName = getTemplateName(
+                renderedContent.content.contentProvider.getSiteContentType());
         string templatePath = buildPath(themePath, "templates", templateName);
-        ensureOutputDirectory(content.relativeUrl());
-        string[string] vars = prepareContentVariables(content);
+        ensureOutputDirectory(renderedContent.content.relativeUrl());
+        string[string] vars = prepareContentVariables(renderedContent);
         try
         {
             string html = renderTemplate(templatePath, vars);
-            string outputFile = buildPath(outputPath, content.relativeUrl()[1 .. $]);
+            string outputFile = buildPath(outputPath, renderedContent.content.relativeUrl()[1 .. $]);
             std.file.write(outputFile, html);
         }
         catch (Exception e)
         {
-            throw new Exception("Failed to render content '" ~ content.title ~ "': " ~ e.msg);
+            throw new Exception(
+                    "Failed to render content '" ~ renderedContent.content.title ~ "': " ~ e.msg);
         }
     }
 
@@ -192,13 +232,13 @@ class HtmlRenderer
         }
     }
 
-    private string[string] prepareContentVariables(Content content)
+    private string[string] prepareContentVariables(RenderedContent renderedContent)
     {
         string[string] vars;
-        vars["title"] = content.title ? content.title : "Untitled";
-        vars["content"] = content.renderedHtml ? content.renderedHtml : "";
-        vars["date"] = formatDate(content.date);
-        vars["author"] = content.author ? content.author : "Unknown";
+        vars["title"] = renderedContent.content.title ? renderedContent.content.title : "Untitled";
+        vars["content"] = renderedContent.renderedHtml ? renderedContent.renderedHtml : "";
+        vars["date"] = formatDate(renderedContent.content.date);
+        vars["author"] = renderedContent.content.author ? renderedContent.content.author : "Unknown";
         vars["copyright"] = copyright;
         vars["siteName"] = siteName;
         vars["siteUrl"] = siteUrl;
@@ -210,16 +250,16 @@ class HtmlRenderer
         return date.toISOExtString().split('T')[0];
     }
 
-    private string renderPostItem(Content post)
+    private string renderPostItem(RenderedContent post)
     {
         string templatePath = buildPath(themePath, "templates", "post_item.html");
         string[string] vars;
-        vars["url"] = post.relativeUrl();
-        vars["title"] = post.title ? post.title : "Untitled";
-        vars["date"] = formatDate(post.date);
-        vars["authorSpan"] = (post.author && !post.author.empty) ? "<span>✍️ "
-            ~ post.author ~ "</span>" : "";
-        string excerpt = post.getExcerpt();
+        vars["url"] = post.content.relativeUrl();
+        vars["title"] = post.content.title ? post.content.title : "Untitled";
+        vars["date"] = formatDate(post.content.date);
+        vars["authorSpan"] = (post.content.author && !post.content.author.empty) ? "<span>✍️ "
+            ~ post.content.author ~ "</span>" : "";
+        string excerpt = post.content.getExcerpt();
         vars["excerptDiv"] = !excerpt.empty
             ? "<div class=\"post-excerpt\">" ~ convertMarkdownToHTML(excerpt) ~ "</div>" : "";
         if (!exists(templatePath))
@@ -230,11 +270,11 @@ class HtmlRenderer
         return replaceTemplateVariables(templateContent, vars);
     }
 
-    void renderIndex(ContentCollection collection)
+    void renderIndex(RenderedContentCollection collection)
     {
         string templatePath = buildPath(themePath, "templates", "index.html");
         auto posts = collection.getPosts();
-        posts.sort!((a, b) => a.date > b.date);
+        posts.sort!((a, b) => a.content.date > b.content.date);
         int totalPosts = cast(int) posts.length;
         pagination.setTotalItems(totalPosts);
         for (int page = 1; page <= pagination.totalPages; page++)
@@ -291,13 +331,38 @@ class HtmlRenderer
         }
     }
 
-    void renderSite(ContentCollection collection)
+    void renderSite(RenderedContentCollection collection)
     {
-        foreach (content; collection.items)
+        foreach (renderedContent; collection.items)
         {
-            render(content);
+            render(renderedContent);
         }
         renderIndex(collection);
         copyStaticFiles();
+    }
+}
+
+class MarkdownProcessor
+{
+    string process(Content content)
+    {
+        string rendered = "";
+        if (content.pageContent.length > 0)
+        {
+            rendered = convertMarkdownToHTML(content.pageContent);
+        }
+        return rendered;
+    }
+
+    RenderedContentCollection processCollection(ContentCollection collection)
+    {
+        auto renderedCollection = new RenderedContentCollection();
+        foreach (content; collection.items)
+        {
+            string renderedHtml = process(content);
+            auto renderedContent = RenderedContent(content, renderedHtml);
+            renderedCollection.add(renderedContent);
+        }
+        return renderedCollection;
     }
 }
