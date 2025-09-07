@@ -34,7 +34,6 @@
   "dependencies": {
     "commandr": "~>1.1.0",
     "commonmark-d": "~>1.0.10",
-    "snowballd": "~>3.0.1",
     "diet-ng": "~>1.8.4",
     "vibe-d": "~>0.10.2"
   },
