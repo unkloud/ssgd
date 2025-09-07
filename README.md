@@ -22,6 +22,7 @@ SSGD is a fast and simple static site generator written in the D programming lan
 - **Fast Build Process**: Efficient static site generation written in D
 - **Local Development Server**: Built-in serve command for development
 - **Static Linking**: Distributable single binary executable
+- **ContentProvider Interface**: Flexible content sourcing through pluggable providers
 
 ## Installation
 

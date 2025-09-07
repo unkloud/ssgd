@@ -9,34 +9,92 @@ import std.algorithm;
 import std.array;
 import std.conv;
 
-class Content
+interface ContentProvider
 {
-    string title;
-    string author;
-    string slug;
-    Date date;
-    string content;
-    string htmlContent;
-    string filePath;
-    string url;
-    string contentType;
+    string getRawContent();
+    string getSiteContentType();
+}
 
-    this(string filePath, string contentType = "post")
+class FileContentProvider : ContentProvider
+{
+    private string filePath;
+    private string contentType;
+
+    this(string filePath, string contentType)
     {
         this.filePath = filePath;
         this.contentType = contentType;
-        this.slug = baseName(filePath, ".md");
-        this.url = "/" ~ (contentType == "post" ? "posts/" : "") ~ slug ~ ".html";
-        parseFile();
     }
 
-    private void parseFile()
+    string getRawContent()
     {
         if (!exists(filePath))
         {
             throw new Exception("File not found: " ~ filePath);
         }
-        string fileContent = readText(filePath);
+        return readText(filePath);
+    }
+
+    string getSiteContentType()
+    {
+        return contentType;
+    }
+
+    string getFilePath()
+    {
+        return filePath;
+    }
+}
+
+class StringContentProvider : ContentProvider
+{
+    private string content;
+    private string contentType;
+    private string slug;
+
+    this(string content, string contentType, string slug)
+    {
+        this.content = content;
+        this.contentType = contentType;
+        this.slug = slug;
+    }
+
+    string getRawContent()
+    {
+        return content;
+    }
+
+    string getSiteContentType()
+    {
+        return contentType;
+    }
+
+    string asSlug()
+    {
+        return slug;
+    }
+}
+
+class Content
+{
+    string title;
+    string author;
+    Date date;
+    string slug;
+    string pageContent;
+    ContentProvider contentProvider;
+    string renderedHtml;
+
+    this(ContentProvider provider)
+    {
+        this.contentProvider = provider;
+        parseContent(provider);
+        assert((slug !is null), "The slug should not be null");
+    }
+
+    private void parseContent(ContentProvider provider)
+    {
+        string fileContent = provider.getRawContent();
         auto lines = fileContent.splitLines();
         size_t contentStart = parseMetadata(lines);
         extractContent(lines, contentStart);
@@ -85,7 +143,6 @@ class Content
     private void setSlug(string newSlug)
     {
         slug = newSlug;
-        url = "/" ~ (contentType == "post" ? "posts/" : "") ~ slug ~ ".html";
     }
 
     private void parseDate(string dateString)
@@ -112,19 +169,25 @@ class Content
     {
         if (startIndex < lines.length)
         {
-            content = lines[startIndex .. $].join("\n");
+            pageContent = lines[startIndex .. $].join("\n");
         }
+    }
+
+    string relativeUrl()
+    {
+        return "/" ~ (contentProvider.getSiteContentType() == "post" ? "posts/" : "")
+            ~ slug ~ ".html";
     }
 
     string getExcerpt()
     {
-        if (content.empty)
+        if (pageContent.empty)
+        {
             return "";
-
-        auto paragraphs = content.split("\n\n");
+        }
+        auto paragraphs = pageContent.split("\n\n");
         string excerpt = "";
         int paragraphCount = 0;
-
         foreach (paragraph; paragraphs)
         {
             auto trimmed = paragraph.strip();
@@ -154,7 +217,7 @@ class ContentCollection
 
     Content[] getByType(string contentType)
     {
-        return items.filter!(i => i.contentType == contentType).array;
+        return items.filter!(i => i.contentProvider.getSiteContentType() == contentType).array;
     }
 
     Content[] getPosts()

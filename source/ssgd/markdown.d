@@ -3,19 +3,22 @@ module ssgd.markdown;
 import commonmarkd;
 import ssgd.content;
 
+struct RenderedContent
+{
+    Content content;
+    string renderedOutput;
+}
+
 class MarkdownProcessor
 {
-    void process(Content content)
+    string process(Content content)
     {
-        if (content.content.length > 0)
+        string rendered = "";
+        if (content.pageContent.length > 0)
         {
-            // Process with commonmark-d
-            content.htmlContent = convertMarkdownToHTML(content.content);
+            rendered = convertMarkdownToHTML(content.pageContent);
         }
-        else
-        {
-            content.htmlContent = "";
-        }
+        return rendered;
     }
 
     void processCollection(ContentCollection collection)

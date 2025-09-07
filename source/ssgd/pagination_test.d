@@ -11,7 +11,6 @@ import std.algorithm;
 import std.array;
 import ssgd.content;
 import ssgd.renderer;
-import ssgd.pagination;
 
 // Helper function to create test posts
 Content[] createTestPosts(int count)
@@ -19,14 +18,15 @@ Content[] createTestPosts(int count)
     Content[] posts;
     for (int i = 1; i <= count; i++)
     {
-        auto post = new Content("", "post");
-        post.title = "Test Post " ~ to!string(i);
-        post.author = "Test Author " ~ to!string(i);
-        post.slug = "test-post-" ~ to!string(i);
-        post.date = Date(2025, 1, i <= 31 ? i : 31);
-        post.content = "This is test content for post " ~ to!string(
-                i) ~ ".\n\nSecond paragraph of post " ~ to!string(i) ~ ".";
-        post.url = "/posts/test-post-" ~ to!string(i) ~ ".html";
+        string testContent = "Title: Test Post " ~ to!string(
+                i) ~ "\n" ~ "Author: Test Author " ~ to!string(
+                i) ~ "\n" ~ "Date: 2025-01-" ~ (i <= 31 ? (i < 10
+                ? "0" : "") ~ to!string(i) : "31") ~ "\n" ~ "Slug: test-post-" ~ to!string(
+                i) ~ "\n\n" ~ "This is test content for post " ~ to!string(
+                i) ~ ".\n\n" ~ "Second paragraph of post " ~ to!string(i) ~ ".";
+        auto provider = new StringContentProvider(testContent, "post",
+                "test-post-" ~ to!string(i));
+        auto post = new Content(provider);
         posts ~= post;
     }
     return posts;
@@ -49,10 +49,24 @@ void cleanupTestDir(string testDir)
     }
 }
 
+// Helper function to set up template files
+void setupTemplates(string testDir)
+{
+    string templateDir = buildPath(testDir, "templates");
+    mkdirRecurse(templateDir);
+    string indexTemplate = "{{posts}}{{pagination}}";
+    string postItemTemplate = "<div class=\"post-item\">\n<h2>{{title}}</h2>\n<p>{{content}}</p>\n</div>";
+    string baseTemplate = "{{content}}";
+    string paginationTemplate = "<nav>{{prevLink}}{{pageLinks}}{{nextLink}}</nav>";
+    std.file.write(buildPath(templateDir, "index.html"), indexTemplate);
+    std.file.write(buildPath(templateDir, "post_item.html"), postItemTemplate);
+    std.file.write(buildPath(templateDir, "base.html"), baseTemplate);
+    std.file.write(buildPath(templateDir, "pagination.html"), paginationTemplate);
+}
+
 // Test pagination calculation with different post counts
 unittest
 {
-    writeln("[DEBUG_LOG] Testing pagination calculation...");
 
     // Test with 0 posts
     auto collection = new ContentCollection();
@@ -64,23 +78,18 @@ unittest
     scope (exit)
         cleanupTestDir(testDir);
 
-    string templateDir = buildPath(testDir, "templates");
-    mkdirRecurse(templateDir);
-    string templateContent = "{{posts}}{{pagination}}";
-    std.file.write(buildPath(templateDir, "index.html"), templateContent);
+    setupTemplates(testDir);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+    auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(5));
     renderer.renderIndex(collection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist even with 0 posts");
-    writeln("[DEBUG_LOG] Zero posts pagination test: PASSED");
 }
 
 // Test pagination with posts fitting exactly in one page
 unittest
 {
-    writeln("[DEBUG_LOG] Testing single page pagination...");
 
     auto collection = new ContentCollection();
     auto posts = createTestPosts(5); // Exactly 5 posts for pagination=5
@@ -91,24 +100,19 @@ unittest
     scope (exit)
         cleanupTestDir(testDir);
 
-    string templateDir = buildPath(testDir, "templates");
-    mkdirRecurse(templateDir);
-    string templateContent = "{{posts}}{{pagination}}";
-    std.file.write(buildPath(templateDir, "index.html"), templateContent);
+    setupTemplates(testDir);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+    auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(5));
     renderer.renderIndex(collection);
 
     assert(exists(buildPath(testDir, "index.html")), "Index file should exist");
     assert(!exists(buildPath(testDir, "page2.html")), "Page 2 should not exist with only 5 posts");
-    writeln("[DEBUG_LOG] Single page pagination test: PASSED");
 }
 
 // Test pagination with multiple pages
 unittest
 {
-    writeln("[DEBUG_LOG] Testing multiple page pagination...");
 
     auto collection = new ContentCollection();
     auto posts = createTestPosts(12); // 12 posts with pagination=5 should create 3 pages
@@ -119,12 +123,9 @@ unittest
     scope (exit)
         cleanupTestDir(testDir);
 
-    string templateDir = buildPath(testDir, "templates");
-    mkdirRecurse(templateDir);
-    string templateContent = "{{posts}}{{pagination}}";
-    std.file.write(buildPath(templateDir, "index.html"), templateContent);
+    setupTemplates(testDir);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+    auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(5));
     renderer.renderIndex(collection);
 
@@ -132,13 +133,11 @@ unittest
     assert(exists(buildPath(testDir, "page2.html")), "Page 2 should exist");
     assert(exists(buildPath(testDir, "page3.html")), "Page 3 should exist");
     assert(!exists(buildPath(testDir, "page4.html")), "Page 4 should not exist");
-    writeln("[DEBUG_LOG] Multiple page pagination test: PASSED");
 }
 
 // Test pagination HTML generation
 unittest
 {
-    writeln("[DEBUG_LOG] Testing pagination HTML generation...");
 
     auto collection = new ContentCollection();
     auto posts = createTestPosts(8); // 8 posts with pagination=3 should create 3 pages
@@ -149,47 +148,45 @@ unittest
     scope (exit)
         cleanupTestDir(testDir);
 
-    string templateDir = buildPath(testDir, "templates");
-    mkdirRecurse(templateDir);
+    setupTemplates(testDir);
+    // Override index template for this specific test
     string templateContent = "POSTS:{{posts}}PAGINATION:{{pagination}}";
-    std.file.write(buildPath(templateDir, "index.html"), templateContent);
+    std.file.write(buildPath(testDir, "templates", "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+    auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(3));
     renderer.renderIndex(collection);
 
-    // Check page 1 (index.html)
+    // Check page 1 (index.html) - posts are sorted newest first
     string page1Content = readText(buildPath(testDir, "index.html"));
-    assert(page1Content.canFind("Test Post 1"), "Page 1 should contain first post");
-    assert(page1Content.canFind("Test Post 3"), "Page 1 should contain third post");
-    assert(!page1Content.canFind("Test Post 4"), "Page 1 should not contain fourth post");
+    assert(page1Content.canFind("Test Post 8"), "Page 1 should contain eighth post (newest)");
+    assert(page1Content.canFind("Test Post 6"), "Page 1 should contain sixth post");
+    assert(!page1Content.canFind("Test Post 5"), "Page 1 should not contain fifth post");
     assert(page1Content.canFind("Next"), "Page 1 should have Next link");
     assert(!page1Content.canFind("Previous"), "Page 1 should not have Previous link");
 
-    // Check page 2
+    // Check page 2 - middle posts in reverse chronological order
     string page2Content = readText(buildPath(testDir, "page2.html"));
-    assert(page2Content.canFind("Test Post 4"), "Page 2 should contain fourth post");
-    assert(page2Content.canFind("Test Post 6"), "Page 2 should contain sixth post");
-    assert(!page2Content.canFind("Test Post 3"), "Page 2 should not contain third post");
-    assert(!page2Content.canFind("Test Post 7"), "Page 2 should not contain seventh post");
+    assert(page2Content.canFind("Test Post 5"), "Page 2 should contain fifth post");
+    assert(page2Content.canFind("Test Post 3"), "Page 2 should contain third post");
+    assert(!page2Content.canFind("Test Post 6"), "Page 2 should not contain sixth post");
+    assert(!page2Content.canFind("Test Post 2"), "Page 2 should not contain second post");
     assert(page2Content.canFind("Previous"), "Page 2 should have Previous link");
     assert(page2Content.canFind("Next"), "Page 2 should have Next link");
 
-    // Check page 3
+    // Check page 3 - oldest posts
     string page3Content = readText(buildPath(testDir, "page3.html"));
-    assert(page3Content.canFind("Test Post 7"), "Page 3 should contain seventh post");
-    assert(page3Content.canFind("Test Post 8"), "Page 3 should contain eighth post");
-    assert(!page3Content.canFind("Test Post 6"), "Page 3 should not contain sixth post");
+    assert(page3Content.canFind("Test Post 2"), "Page 3 should contain second post");
+    assert(page3Content.canFind("Test Post 1"), "Page 3 should contain first post (oldest)");
+    assert(!page3Content.canFind("Test Post 3"), "Page 3 should not contain third post");
     assert(page3Content.canFind("Previous"), "Page 3 should have Previous link");
     assert(!page3Content.canFind("Next"), "Page 3 should not have Next link");
 
-    writeln("[DEBUG_LOG] Pagination HTML generation test: PASSED");
 }
 
 // Test pagination URL generation
 unittest
 {
-    writeln("[DEBUG_LOG] Testing pagination URL generation...");
 
     auto collection = new ContentCollection();
     auto posts = createTestPosts(7); // 7 posts with pagination=3 should create 3 pages
@@ -200,12 +197,12 @@ unittest
     scope (exit)
         cleanupTestDir(testDir);
 
-    string templateDir = buildPath(testDir, "templates");
-    mkdirRecurse(templateDir);
+    setupTemplates(testDir);
+    // Override index template for this specific test
     string templateContent = "{{pagination}}";
-    std.file.write(buildPath(templateDir, "index.html"), templateContent);
+    std.file.write(buildPath(testDir, "templates", "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+    auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(3));
     renderer.renderIndex(collection);
 
@@ -215,37 +212,32 @@ unittest
             "Page 2 should link to index.html for page 1");
     assert(page2Content.canFind("href=\"page3.html\""),
             "Page 2 should link to page3.html for page 3");
-    assert(page2Content.canFind("class=\"active\""),
-            "Page 2 should have active class on current page");
+    assert(page2Content.canFind("class=\"button primary\""),
+            "Page 2 should have primary class on current page");
 
-    writeln("[DEBUG_LOG] Pagination URL generation test: PASSED");
 }
 
 // Test post sorting by date
 unittest
 {
-    writeln("[DEBUG_LOG] Testing post sorting by date...");
 
     auto collection = new ContentCollection();
 
     // Create posts with different dates (not in chronological order)
-    auto post1 = new Content("", "post");
-    post1.title = "Oldest Post";
-    post1.date = Date(2025, 1, 1);
-    post1.content = "Oldest content.";
-    post1.url = "/posts/oldest.html";
+    auto provider1 = new StringContentProvider(
+            "Title: Oldest Post\nDate: 2025-01-01\nSlug: oldest\n\nOldest content.",
+            "post", "oldest");
+    auto post1 = new Content(provider1);
 
-    auto post2 = new Content("", "post");
-    post2.title = "Newest Post";
-    post2.date = Date(2025, 1, 15);
-    post2.content = "Newest content.";
-    post2.url = "/posts/newest.html";
+    auto provider2 = new StringContentProvider(
+            "Title: Newest Post\nDate: 2025-01-15\nSlug: newest\n\nNewest content.",
+            "post", "newest");
+    auto post2 = new Content(provider2);
 
-    auto post3 = new Content("", "post");
-    post3.title = "Middle Post";
-    post3.date = Date(2025, 1, 10);
-    post3.content = "Middle content.";
-    post3.url = "/posts/middle.html";
+    auto provider3 = new StringContentProvider(
+            "Title: Middle Post\nDate: 2025-01-10\nSlug: middle\n\nMiddle content.",
+            "post", "middle");
+    auto post3 = new Content(provider3);
 
     collection.add(post1);
     collection.add(post2);
@@ -255,12 +247,12 @@ unittest
     scope (exit)
         cleanupTestDir(testDir);
 
-    string templateDir = buildPath(testDir, "templates");
-    mkdirRecurse(templateDir);
+    setupTemplates(testDir);
+    // Override index template for this specific test
     string templateContent = "{{posts}}";
-    std.file.write(buildPath(templateDir, "index.html"), templateContent);
+    std.file.write(buildPath(testDir, "templates", "index.html"), templateContent);
 
-    auto renderer = new Renderer(testDir, testDir, "Test Site", "/",
+    auto renderer = new HtmlRenderer(testDir, testDir, "Test Site", "/",
             "Test Copyright", Pagination(10));
     renderer.renderIndex(collection);
 
@@ -274,5 +266,4 @@ unittest
     assert(newestPos < middlePos, "Newest post should appear before middle post");
     assert(middlePos < oldestPos, "Middle post should appear before oldest post");
 
-    writeln("[DEBUG_LOG] Post sorting by date test: PASSED");
 }

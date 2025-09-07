@@ -10,21 +10,20 @@ import ssgd.content;
 import ssgd.markdown;
 import ssgd.renderer;
 import ssgd.config;
-import ssgd.pagination;
 
 class SiteGenerator
 {
     SiteConfig config;
     ContentCollection collection;
     MarkdownProcessor markdownProcessor;
-    Renderer renderer;
+    HtmlRenderer renderer;
 
     this(SiteConfig config)
     {
         this.config = config;
         collection = new ContentCollection();
         markdownProcessor = new MarkdownProcessor();
-        renderer = new Renderer(config.themePath, config.outputPath, config.siteName,
+        renderer = new HtmlRenderer(config.themePath, config.outputPath, config.siteName,
                 config.siteUrl, config.copyright, Pagination(config.pagination));
     }
 
@@ -37,7 +36,8 @@ class SiteGenerator
             {
                 try
                 {
-                    auto content = new Content(entry, "post");
+                    auto provider = new FileContentProvider(entry, "post");
+                    auto content = new Content(provider);
                     collection.add(content);
                     writeln("Loaded post: ", content.title);
                 }
@@ -54,7 +54,8 @@ class SiteGenerator
             {
                 try
                 {
-                    auto content = new Content(entry, "page");
+                    auto provider = new FileContentProvider(entry, "page");
+                    auto content = new Content(provider);
                     collection.add(content);
                     writeln("Loaded page: ", content.title);
                 }

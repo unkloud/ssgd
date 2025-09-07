@@ -35,7 +35,6 @@
     "commandr": "~>1.1.0",
     "commonmark-d": "~>1.0.10",
     "diet-ng": "~>1.8.4",
-    "snowballd": "~>3.0.1",
     "vibe-d": "~>0.10.2"
   },
   "description": "A static site generator written in D",
