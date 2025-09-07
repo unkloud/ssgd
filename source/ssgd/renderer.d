@@ -120,14 +120,15 @@ struct Pagination
         {
             string prevUrl = currentPage == 2 ? "index.html" : "page" ~ to!string(
                     currentPage - 1) ~ ".html";
-            prevLink = "<a href=\"" ~ prevUrl ~ "\" class=\"button prev\">&laquo; Previous</a>";
+            prevLink = "<a href=\"" ~ prevUrl
+                ~ "\" class=\"button clear prev\">&laquo; Previous</a>";
         }
 
         string pageLinks = "";
         for (int p = 1; p <= totalPages; p++)
         {
             string pageUrl = p == 1 ? "index.html" : "page" ~ to!string(p) ~ ".html";
-            string cls = (p == currentPage) ? "button primary" : "button outline";
+            string cls = (p == currentPage) ? "button clear" : "button outline";
             pageLinks ~= "  <a href=\"" ~ pageUrl ~ "\" class=\"" ~ cls ~ "\">" ~ to!string(
                     p) ~ "</a>\n";
         }
@@ -136,7 +137,7 @@ struct Pagination
         if (currentPage < totalPages)
         {
             string nextUrl = "page" ~ to!string(currentPage + 1) ~ ".html";
-            nextLink = "<a href=\"" ~ nextUrl ~ "\" class=\"button next\">Next &raquo;</a>";
+            nextLink = "<a href=\"" ~ nextUrl ~ "\" class=\"button clear next\">Next &raquo;</a>";
         }
 
         templateContent = templateContent.replace("{{prevLink}}", prevLink);
