@@ -8,9 +8,6 @@
         "releaseMode",
         "inline",
         "optimize"
-      ],
-      "dflags": [
-        "-link-defaultlib-shared=false"
       ]
     }
   },
